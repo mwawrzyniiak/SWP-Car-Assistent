@@ -17,6 +17,9 @@ What things you need to install the software and how to install them:
 * **Maciej Parapura** - [Maciej Parapura](https://github.com/Mehip)
 * **Michał Capała** - [Michał Capała](https://github.com/michi0987)
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+## Referencjes
+Microsoft.Speech:
+[Microsoft Speech Platform](https://docs.microsoft.com/en-us/previous-versions/office/developer/speech-technologies/hh361572(v=office.14)?redirectedfrom=MSDN)  
+[Documentation](https://docs.microsoft.com/pl-pl/dotnet/api/system.speech.recognition?view=netframework-4.8)  
+  
+The project was created for educational purposes
