@@ -45,9 +45,9 @@
     <Compile Include="Repositories\ExampleRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SWPCarAssistent.Application\SWPCarAssistent.App.csproj">
+    <ProjectReference Include="..\SWPCarAssistent.Application\SWPCarAssistent.Core.csproj">
       <Project>{6f553cbc-c656-4a7f-b643-dcc7401f4482}</Project>
-      <Name>SWPCarAssistent.App</Name>
+      <Name>SWPCarAssistent.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

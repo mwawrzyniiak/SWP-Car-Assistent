@@ -1,4 +1,4 @@
-﻿namespace SWPCarAssistent.App.Common.Entities
+﻿namespace SWPCarAssistent.Core.Common.Entities
 {
     public class EntitieExample : AuditableEntity
     {

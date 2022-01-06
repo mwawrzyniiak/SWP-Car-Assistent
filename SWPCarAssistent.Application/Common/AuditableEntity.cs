@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SWPCarAssistent.App.Common
+namespace SWPCarAssistent.Core.Common
 {
     public abstract class AuditableEntity
     {

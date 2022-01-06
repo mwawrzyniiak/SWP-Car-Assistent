@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{29A43F80-E62
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D20CCC7A-5C78-4084-9604-C4846A17B6E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWPCarAssistent.App", "SWPCarAssistent.Application\SWPCarAssistent.App.csproj", "{6F553CBC-C656-4A7F-B643-DCC7401F4482}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWPCarAssistent.Core", "SWPCarAssistent.Application\SWPCarAssistent.Core.csproj", "{6F553CBC-C656-4A7F-B643-DCC7401F4482}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWPCarAssistent.Infrastructure", "SWPCarAssistent.Infrastructure\SWPCarAssistent.Infrastructure.csproj", "{32A63693-949D-4C86-A1F1-95A47A2568A1}"
 EndProject

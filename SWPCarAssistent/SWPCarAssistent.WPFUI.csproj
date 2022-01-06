@@ -119,9 +119,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SWPCarAssistent.Application\SWPCarAssistent.App.csproj">
+    <ProjectReference Include="..\SWPCarAssistent.Application\SWPCarAssistent.Core.csproj">
       <Project>{6f553cbc-c656-4a7f-b643-dcc7401f4482}</Project>
-      <Name>SWPCarAssistent.App</Name>
+      <Name>SWPCarAssistent.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\SWPCarAssistent.Infrastructure\SWPCarAssistent.Infrastructure.csproj">
       <Project>{32a63693-949d-4c86-a1f1-95a47a2568a1}</Project>

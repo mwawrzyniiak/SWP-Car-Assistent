@@ -1,4 +1,4 @@
-﻿namespace SWPCarAssistent.App.Common.Interfaces
+﻿namespace SWPCarAssistent.Core.Common.Interfaces
 {
     //todo zmienic nazwe + dodac definicje
     public interface IExampleRepository

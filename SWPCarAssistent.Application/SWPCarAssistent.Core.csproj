@@ -7,8 +7,8 @@
     <ProjectGuid>{6F553CBC-C656-4A7F-B643-DCC7401F4482}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SWPCarAssistent.App</RootNamespace>
-    <AssemblyName>SWPCarAssistent.App</AssemblyName>
+    <RootNamespace>SWPCarAssistent.Core</RootNamespace>
+    <AssemblyName>SWPCarAssistent.Core</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
