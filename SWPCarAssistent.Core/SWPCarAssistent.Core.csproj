@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6F553CBC-C656-4A7F-B643-DCC7401F4482}</ProjectGuid>
+    <ProjectGuid>{0C5E9548-F1DC-4A64-95E8-75050A2EE883}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SWPCarAssistent.Core</RootNamespace>

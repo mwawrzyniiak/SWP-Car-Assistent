@@ -45,8 +45,8 @@
     <Compile Include="Repositories\ExampleRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SWPCarAssistent.Application\SWPCarAssistent.Core.csproj">
-      <Project>{6f553cbc-c656-4a7f-b643-dcc7401f4482}</Project>
+    <ProjectReference Include="..\SWPCarAssistent.Core\SWPCarAssistent.Core.csproj">
+      <Project>{0c5e9548-f1dc-4a64-95e8-75050a2ee883}</Project>
       <Name>SWPCarAssistent.Core</Name>
     </ProjectReference>
   </ItemGroup>
