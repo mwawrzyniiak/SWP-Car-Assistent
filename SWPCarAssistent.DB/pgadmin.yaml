@@ -1,0 +1,16 @@
+version: '3'
+services:
+
+  pgadmin:
+    image: dpage/pgadmin4
+
+    ports:
+      - '8080:80'
+    network_mode: bridge
+
+    external_links:
+      - car_assistent_db:postgres
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'admin@admin.com'
+      PGADMIN_DEFAULT_PASSWORD: 'admin'
