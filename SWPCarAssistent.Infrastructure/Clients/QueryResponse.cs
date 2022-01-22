@@ -5,7 +5,7 @@ namespace SWPCarAssistent.Infrastructure.Clients
 {
     public class QueryResponse
     {
-        WeatherRoot WeatherRoot { get; set; }
+        public WeatherRoot WeatherRoot { get; }
 
         public QueryResponse(string jsonResponse)
         {

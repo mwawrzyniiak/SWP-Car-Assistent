@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clients\OpenWeatherApiHttpClient.cs" />
     <Compile Include="Clients\QueryResponse.cs" />
     <Compile Include="Contexts\CarContext.cs" />
     <Compile Include="Factories\WeatherRootFactory.cs" />
