@@ -64,6 +64,7 @@
     <Compile Include="Common\Models\Weather.cs" />
     <Compile Include="Common\Models\WeatherRoot.cs" />
     <Compile Include="Common\Models\Wind.cs" />
+    <Compile Include="Common\Interfaces\ICarRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
