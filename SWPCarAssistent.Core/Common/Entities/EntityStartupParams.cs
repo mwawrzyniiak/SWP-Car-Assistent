@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SWPCarAssistent.Core.Common.Entities
+﻿namespace SWPCarAssistent.Core.Common.Entities
 {
-
     public class EntityStartupParams
     {
+
         public int Id { get; set; }
 
         public bool Lights { get; set; }
@@ -22,5 +16,16 @@ namespace SWPCarAssistent.Core.Common.Entities
         public bool AirConditioning { get; set; }
 
         public bool Heating { get; set; }
+
+        public EntityStartupParams(int id, bool lights, bool wipers, bool carWindows, bool radio, bool airConditioning, bool heating)
+        {
+            Id = id;
+            Lights = lights;
+            Wipers = wipers;
+            CarWindows = carWindows;
+            Radio = radio;
+            AirConditioning = airConditioning;
+            Heating = heating;
+        }
     }
 }

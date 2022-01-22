@@ -1,10 +1,8 @@
-﻿using SWPCarAssistent.Core.Common.Interfaces;
-using System;
+﻿using SWPCarAssistent.Core.Common.Entities;
+using SWPCarAssistent.Core.Common.Interfaces;
+using SWPCarAssistent.Infrastructure.Context;
 using System.Collections.Generic;
 using System.Linq;
-using SWPCarAssistent.Core.Common.Entities;
-using System.Data.Entity;
-using SWPCarAssistent.Infrastructure.Context;
 
 namespace SWPCarAssistent.Infrastructure.Repositories
 {

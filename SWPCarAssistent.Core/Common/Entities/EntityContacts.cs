@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SWPCarAssistent.Core.Common.Entities
 {
@@ -18,6 +13,13 @@ namespace SWPCarAssistent.Core.Common.Entities
         public string PhoneNumber { get; set; }
 
         public bool? Favourite { get; set; }
+
+        public EntityContacts(string fullName, string phoneNumber, bool? favourite)
+        {
+            FullName = fullName;
+            PhoneNumber = phoneNumber;
+            Favourite = favourite;
+        }
     }
 }
 

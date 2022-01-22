@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SWPCarAssistent.Core.Common.Entities
 {
-
     [Table("Radio")]
     public class EntityRadio
     {
@@ -21,5 +15,12 @@ namespace SWPCarAssistent.Core.Common.Entities
         [Required]
         [StringLength(5)]
         public string Frequency { get; set; }
+
+        public EntityRadio(int id, string radioName, string frequency)
+        {
+            Id = id;
+            RadioName = radioName;
+            Frequency = frequency;
+        }
     }
 }
