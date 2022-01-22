@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SWPCarAssistent.Core.Common.Entities;
 using System.Data.Entity;
+using SWPCarAssistent.Infrastructure.Context;
 
 namespace SWPCarAssistent.Infrastructure.Repositories
 {

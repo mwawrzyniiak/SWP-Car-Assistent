@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using SWPCarAssistent.Core.Common.Entities;
 
 
-namespace SWPCarAssistent.Infrastructure
+namespace SWPCarAssistent.Infrastructure.Context
 {
     public class CarContext : DbContext
     {

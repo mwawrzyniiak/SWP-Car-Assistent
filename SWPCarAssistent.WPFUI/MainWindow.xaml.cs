@@ -26,7 +26,6 @@ namespace SWPCarAssistent
         {
             InitializeComponent();
             CarRepository cr = new CarRepository();
-            cr.UpdateRadioStation();
         }
     }
 }
