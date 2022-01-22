@@ -140,6 +140,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Polonez_1500_wnetzre.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Grammars\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
