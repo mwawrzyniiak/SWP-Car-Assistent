@@ -3,5 +3,6 @@
     public class EntitieExample : AuditableEntity
     {
         //todo zmiana nazwy + encja z bazy jakas tam
+        //testcommit
     }
 }

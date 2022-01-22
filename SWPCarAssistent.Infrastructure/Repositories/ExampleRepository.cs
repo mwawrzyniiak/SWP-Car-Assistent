@@ -4,6 +4,6 @@ namespace SWPCarAssistent.Infrastructure.Repositories
 {
     public class ExampleRepository : IExampleRepository
     {
-
+            
     }
 }
