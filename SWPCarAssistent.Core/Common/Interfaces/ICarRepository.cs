@@ -5,12 +5,12 @@ namespace SWPCarAssistent.Core.Common.Interfaces
 {
     public interface ICarRepository
     {
-        void AddNewContact(EntityContacts Contacts);
-        void AddNewRadioStation(EntityRadio Radio);
-        void ChangeStartupParams(EntityStartupParams startupParams);
-        List<EntityRadio> GetAllContacts();
-        EntityContacts GetContact(string name);
-        EntityRadio GetRadioStation(string radioName);
-        EntityStartupParams GetStartupParams();
+        void AddNewContact(Contacts Contacts);
+        void AddNewRadioStation(Radio Radio);
+        void ChangeStartupParams(StartupParams startupParams);
+        List<Radio> GetAllContacts();
+        Contacts GetContact(string name);
+        Radio GetRadioStation(string radioName);
+        StartupParams GetStartupParams();
     }
 }

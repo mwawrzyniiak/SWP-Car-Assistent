@@ -2,7 +2,7 @@
 
 namespace SWPCarAssistent.Core.Common.Entities
 {
-    public class EntityContacts
+    public class Contacts
     {
         [Key]
         [StringLength(50)]
@@ -14,7 +14,7 @@ namespace SWPCarAssistent.Core.Common.Entities
 
         public bool? Favourite { get; set; }
 
-        public EntityContacts(string fullName, string phoneNumber, bool? favourite)
+        public Contacts(string fullName, string phoneNumber, bool? favourite)
         {
             FullName = fullName;
             PhoneNumber = phoneNumber;

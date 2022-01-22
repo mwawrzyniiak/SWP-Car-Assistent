@@ -8,7 +8,8 @@ namespace SWPCarAssistent.Infrastructure.Repositories
 {
     public class CarRepository : ICarRepository
     {
-        public void AddNewRadioStation(EntityRadio Radio)
+        public CarRepository() { }
+        public void AddNewRadioStation(Radio Radio)
         {
             using (var context = new CarContext())
             {
@@ -17,7 +18,7 @@ namespace SWPCarAssistent.Infrastructure.Repositories
             }
         }
 
-        public EntityRadio GetRadioStation(string radioName)
+        public Radio GetRadioStation(string radioName)
         {
             using (var context = new CarContext())
             {
@@ -25,7 +26,7 @@ namespace SWPCarAssistent.Infrastructure.Repositories
             }
         }
 
-        public void AddNewContact(EntityContacts Contacts)
+        public void AddNewContact(Contacts Contacts)
         {
             using (var context = new CarContext())
             {
@@ -33,21 +34,21 @@ namespace SWPCarAssistent.Infrastructure.Repositories
                 context.SaveChanges();
             }
         }
-        public List<EntityRadio> GetAllContacts()
+        public List<Radio> GetAllContacts()
         {
             using (var context = new CarContext())
             {
                 return context.Radio.ToList();
             }
         }
-        public EntityContacts GetContact(string name)
+        public Contacts GetContact(string name)
         {
             using (var context = new CarContext())
             {
                 return context.Contacts?.Where(b => b.FullName.Contains(name)).FirstOrDefault();
             }
         }
-        public void ChangeStartupParams(EntityStartupParams startupParams)
+        public void ChangeStartupParams(StartupParams startupParams)
         {
             using (var db = new CarContext())
             {
@@ -62,11 +63,11 @@ namespace SWPCarAssistent.Infrastructure.Repositories
                 db.SaveChanges();
             }
         }
-        public EntityStartupParams GetStartupParams()
+        public StartupParams GetStartupParams()
         {
             using (var db = new CarContext())
             {
-                return db.StartupParams?.FirstOrDefault();
+                return db.StartupParams.Where(b => b.Id.Equals(1)).First();
             }
 
         }

@@ -1,7 +1,8 @@
 ﻿namespace SWPCarAssistent.Core.Common.Entities
 {
-    public class EntityStartupParams
+    public class StartupParams
     {
+        public StartupParams() { }
 
         public int Id { get; set; }
 
@@ -17,7 +18,7 @@
 
         public bool Heating { get; set; }
 
-        public EntityStartupParams(int id, bool lights, bool wipers, bool carWindows, bool radio, bool airConditioning, bool heating)
+        public StartupParams(int id, bool lights, bool wipers, bool carWindows, bool radio, bool airConditioning, bool heating)
         {
             Id = id;
             Lights = lights;

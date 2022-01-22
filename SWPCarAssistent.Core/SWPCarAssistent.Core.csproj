@@ -52,9 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AuditableEntity.cs" />
-    <Compile Include="Common\Entities\EntityContacts.cs" />
-    <Compile Include="Common\Entities\EntityRadio.cs" />
-    <Compile Include="Common\Entities\EntityStartupParams.cs" />
+    <Compile Include="Common\Entities\Contacts.cs" />
+    <Compile Include="Common\Entities\Radio.cs" />
+    <Compile Include="Common\Entities\StartupParams.cs" />
     <Compile Include="Common\Exceptions\WeatherNotFoundException.cs" />
     <Compile Include="Common\Interfaces\IOpenWeatherMapService.cs" />
     <Compile Include="Common\Models\Clouds.cs" />

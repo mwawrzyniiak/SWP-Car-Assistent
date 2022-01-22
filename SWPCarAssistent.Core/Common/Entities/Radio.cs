@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SWPCarAssistent.Core.Common.Entities
 {
     [Table("Radio")]
-    public class EntityRadio
+    public class Radio
     {
         public int Id { get; set; }
 
@@ -16,7 +16,7 @@ namespace SWPCarAssistent.Core.Common.Entities
         [StringLength(5)]
         public string Frequency { get; set; }
 
-        public EntityRadio(int id, string radioName, string frequency)
+        public Radio(int id, string radioName, string frequency)
         {
             Id = id;
             RadioName = radioName;

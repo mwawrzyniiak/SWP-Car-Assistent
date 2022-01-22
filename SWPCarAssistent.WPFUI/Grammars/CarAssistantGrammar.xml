@@ -13,6 +13,8 @@
 		<tag>out.airConditioning=rules.latest();</tag>
 		<ruleref uri="#heating"></ruleref>
 		<tag>out.heating=rules.latest();</tag>
+		<ruleref uri="#config"></ruleref>
+		<tag>out.config=rules.latest();</tag>
 	</rule>
 	<rule id="lights">
 		<one-of>
@@ -86,6 +88,16 @@
 			</item>
 			<item>
 				wyłącz ogrzewanie <tag>out="offHeating"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="config">
+		<one-of>
+			<item>
+				Załaduj domyślne ustawienia <tag>out="getConfig"</tag>
 			</item>
 			<item>
 				<tag>out="null"</tag>
