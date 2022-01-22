@@ -1,22 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.Speech.AudioFormat;
-using Microsoft.Speech.Recognition;
+﻿using Microsoft.Speech.Recognition;
 using Microsoft.Speech.Synthesis;
 using SWPCarAssistent.Infrastructure.Repositories;
+using System;
+using System.Globalization;
+using System.Windows;
 
 namespace SWPCarAssistent
 {
@@ -25,10 +12,9 @@ namespace SWPCarAssistent
     /// </summary>
     public partial class MainWindow : Window
     {
-        static SpeechSynthesizer ss;
-        static SpeechRecognitionEngine sre;
-
-
+        private static SpeechSynthesizer ss;
+        private static SpeechRecognitionEngine sre;
+        private Grammar carAssistentGrammar;
 
         public MainWindow()
         {
@@ -48,12 +34,34 @@ namespace SWPCarAssistent
             sre.SetInputToDefaultAudioDevice();
             sre.SpeechRecognized += Sre_SpeechRecognized;
 
-            ss.SpeakAsync("Witaj ponownie, od czego zaczynamy?");
+            carAssistentGrammar = new Grammar("Grammars\\CarAssistantGrammar.xml");
+            carAssistentGrammar.Enabled = true; 
+            sre.LoadGrammar(carAssistentGrammar);
+            sre.RecognizeAsync(RecognizeMode.Multiple);
+
+            ss.SpeakAsync("Cześć! Jestem asystentem samochodu Polonez. Powiedz \"Hej Polonez\", aby rozpocząć.");
         }
 
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            throw new NotImplementedException();
+            float confidence = e.Result.Confidence;
+
+            if (confidence <= 0.6)
+            {
+                ss.SpeakAsync("Nie zrozumiałem, proszę powtórzyć");
+            }
+            else
+            {
+                string lights = e.Result.Semantics["lights"].Value.ToString();
+                string wipers = e.Result.Semantics["wipers"].Value.ToString();
+                string carWindows = e.Result.Semantics["carWindows"].Value.ToString();
+                string radio = e.Result.Semantics["radio"].Value.ToString();
+
+                ss.SpeakAsync(lights);
+                ss.SpeakAsync(wipers);
+                ss.SpeakAsync(carWindows);
+                ss.SpeakAsync(radio);
+            }
         }
     }
 }

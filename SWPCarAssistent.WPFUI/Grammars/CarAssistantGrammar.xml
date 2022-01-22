@@ -1,0 +1,95 @@
+﻿<grammar version="1.0" xml:lang="pl-PL" root="rootRule" xmlns="http://www.w3.org/2001/06/grammar"
+         tag-format="semantics/1.0">
+	<rule id="rootRule">
+		<ruleref uri="#lights"></ruleref>
+		<tag>out.lights=rules.latest();</tag>
+		<ruleref uri="#wipers"></ruleref>
+		<tag>out.wipers=rules.latest();</tag>
+		<ruleref uri="#carWindows"></ruleref>
+		<tag>out.carWindows=rules.latest();</tag>
+		<ruleref uri="#radio"></ruleref>
+		<tag>out.radio=rules.latest();</tag>
+		<ruleref uri="#airConditioning"></ruleref>
+		<tag>out.airConditioning=rules.latest();</tag>
+		<ruleref uri="#heating"></ruleref>
+		<tag>out.heating=rules.latest();</tag>
+	</rule>
+	<rule id="lights">
+		<one-of>
+			<item>
+				włącz światła <tag>out="onLights"</tag>
+			</item>
+			<item>
+				wyłącz światła <tag>out="offLights"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="wipers">
+		<one-of>
+			<item>
+				włącz wycieraczki <tag>out="onWipers"</tag>
+			</item>
+			<item>
+				wyłącz wycieraczki<tag>out="offWipers"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="carWindows">
+		<one-of>
+			<item>
+				otwórz szyby <tag>out="openCarWindows"</tag>
+			</item>
+			<item>
+				zamknij szyby <tag>out="closeCarWindows"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="radio">
+		<one-of>
+			<item>
+				włącz radio <tag>out="onRadio"</tag>
+			</item>
+			<item>
+				wyłącz radio<tag>out="offRadio"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="airConditioning">
+		<one-of>
+			<item>
+				włącz nawiew <tag>out="onAirConditioning"</tag>
+			</item>
+			<item>
+				wyłącz nawiew<tag>out="offAirConditioning"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="heating">
+		<one-of>
+			<item>
+				włącz ogrzewanie <tag>out="onHeating"</tag>
+			</item>
+			<item>
+				wyłącz ogrzewanie <tag>out="offHeating"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+</grammar>

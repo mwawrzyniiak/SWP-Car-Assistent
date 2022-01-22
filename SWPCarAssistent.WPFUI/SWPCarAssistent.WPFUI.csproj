@@ -142,8 +142,11 @@
   <ItemGroup>
     <Resource Include="Images\Polonez_1500_wnetzre.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Grammars\" />
+    <Content Include="Grammars\CarAssistantGrammar.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
