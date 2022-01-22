@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Speech.AudioFormat;
+using SWPCarAssistent.Infrastructure.Repositories;
 
 namespace SWPCarAssistent
 {
@@ -24,6 +25,8 @@ namespace SWPCarAssistent
         public MainWindow()
         {
             InitializeComponent();
+            CarRepository cr = new CarRepository();
+            cr.UpdateRadioStation();
         }
     }
 }
