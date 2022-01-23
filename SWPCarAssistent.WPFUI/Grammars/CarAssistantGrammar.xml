@@ -19,6 +19,8 @@
 		<tag>out.weather=rules.latest();</tag>
 		<ruleref uri="#start"></ruleref>
 		<tag>out.start=rules.latest();</tag>
+		<ruleref uri="#telephoneContacts"></ruleref>
+		<tag>out.telephoneContacts=rules.latest();</tag>
 	</rule>
 	<rule id="lights">
 		<one-of>
@@ -165,6 +167,22 @@
 			<item>
 				Jaka jest pogoda we Wrocławiu<tag>out="Wroclaw"</tag>
 			</item>			
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="telephoneContacts">
+		<one-of>
+			<item>
+				kontakty <tag>out="telephoneContactsOpen"</tag>
+			</item>
+			<item>
+				numery <tag>out="telephoneContactsOpen"</tag>
+			</item>
+			<item>
+				książka telefoniczna <tag>out="telephoneContactsOpen"</tag>
+			</item>
 			<item>
 				<tag>out="null"</tag>
 			</item>

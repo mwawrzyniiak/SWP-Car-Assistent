@@ -21,13 +21,17 @@ namespace SWPCarAssistent
     {
         private readonly SimpleAppConfigurations simpleAppConfigurations;
         private readonly OpenWeatherApiHttpClient openWeatherApiHttpClient;
-        
         private static SpeechSynthesizer ss;
         private static SpeechRecognitionEngine sre;
+
         private Grammar carAssistentGrammar;
+        private Grammar phoneInteractionGrammar;
         private MediaPlayer mediaPlayer = new MediaPlayer();
-        private bool start = false;
+        private CarRepository carRepository;
+
         public static StartupParams startupParamshelper = new StartupParams();
+        
+        private bool start = false;
 
         public MainWindow()
         {
@@ -35,6 +39,7 @@ namespace SWPCarAssistent
 
             simpleAppConfigurations = new SimpleAppConfigurations();
             openWeatherApiHttpClient = new OpenWeatherApiHttpClient(simpleAppConfigurations.API_KEY);
+            carRepository = new CarRepository();
 
             //string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
             //Uri uri = new Uri(path);
@@ -55,20 +60,20 @@ namespace SWPCarAssistent
 
             carAssistentGrammar = new Grammar("Grammars\\CarAssistantGrammar.xml");
             carAssistentGrammar.Enabled = true;
+
+            phoneInteractionGrammar = new Grammar("Grammars\\PhoneInteractionGrammar.xml");
+            phoneInteractionGrammar.Enabled = true;
+
             sre.LoadGrammar(carAssistentGrammar);
             sre.RecognizeAsync(RecognizeMode.Multiple);
-
-            //ss.SpeakAsync("Cześć! Jestem asystentem samochodu Polonez. Powiedz \"Hej Polonez\", aby rozpocząć.");
         }
 
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            CarRepository carRepository = new CarRepository();
             float confidence = e.Result.Confidence;
             if (confidence <= 0.6)
             {
                 ss.SpeakAsync("Nie rozumiem, możesz powtórzyć?");
-
             }
             else
             {
@@ -79,31 +84,16 @@ namespace SWPCarAssistent
                 }
                 if (e.Result.Semantics["weather"].Value.ToString() != "null" && e.Result.Semantics["weather"].ToString() != null)
                 {
-                    var city = e.Result.Semantics["weather"].Value.ToString();
-                    // var result = openWeatherApiHttpClient.GetQueryAsync(city);
-                    var task = Task.Run(async () => await openWeatherApiHttpClient.GetQueryAsync(city));
-                    var weatherRoot = task.Result;
-
-                    int tempCel = (int) (weatherRoot.WeatherRoot.main.temp - 273.15);
-                    int feelsTempCel = (int) (weatherRoot.WeatherRoot.main.feels_like - 273.15);
-
-                    ss.SpeakAsync("Pogoda w mieście " + city + " jest następująca");
-
-                    if(tempCel > 0)
-                        ss.SpeakAsync("Temperatura wynosi "+ tempCel + " stopni Celsjusza");
-                    else if(tempCel == 0)
-                        ss.SpeakAsync("Temperatura wynosi zero stopni Celsjusza");
-                    else
-                        ss.SpeakAsync("Temperatura wynosi minus "+ tempCel + " stopni Celsjusza");
-
-                    if (feelsTempCel >= 0)
-                        ss.SpeakAsync("Temperatura odczuwalna to " + feelsTempCel + " stopni Celsjusza");
-                    else if(feelsTempCel == 0)
-                        ss.SpeakAsync("Temperatura odczuwalna to zero stopni Celsjusza");
-                    else
-                        ss.SpeakAsync("Temperatura odczuwalna to minus " + feelsTempCel + " stopni Celsjusza");
-
-                    ss.SpeakAsync("Dodatkowo aktualny wiatr wieje z prędkością " + weatherRoot.WeatherRoot.wind.speed + " metrów na sekundę");
+                    WeatherDialogue(e);
+                    return;
+                }
+                else if(e.Result.Semantics["telephoneContacts"].Value.ToString() != "null" && e.Result.Semantics["telephoneContacts"].ToString() != null)
+                {
+                    sre.UnloadAllGrammars();
+                    sre.SpeechRecognized -= Sre_SpeechRecognized;
+                    sre.SpeechRecognized += Sre_SpeechRecognizedTelephoneNumbers;
+                    sre.LoadGrammar(phoneInteractionGrammar);
+                    ss.SpeakAsync("Co chcesz zrobić z listą kontaktów? Wyświetlić czy do kogoś zadzwonić?");
                 }
                 else
                 {
@@ -129,6 +119,35 @@ namespace SWPCarAssistent
             {
                 textBlock1.Text += helper.Name + " " + helper.GetValue(startupParamshelper).ToString() + "\n";
             }
+        }
+
+        private void WeatherDialogue(SpeechRecognizedEventArgs e)
+        {
+            var city = e.Result.Semantics["weather"].Value.ToString();
+            // var result = openWeatherApiHttpClient.GetQueryAsync(city);
+            var task = Task.Run(async () => await openWeatherApiHttpClient.GetQueryAsync(city));
+            var weatherRoot = task.Result;
+
+            int tempCel = (int)(weatherRoot.WeatherRoot.main.temp - 273.15);
+            int feelsTempCel = (int)(weatherRoot.WeatherRoot.main.feels_like - 273.15);
+
+            ss.SpeakAsync("Pogoda w mieście " + city + " jest następująca");
+
+            if (tempCel > 0)
+                ss.SpeakAsync("Temperatura wynosi " + tempCel + " stopni Celsjusza");
+            else if (tempCel == 0)
+                ss.SpeakAsync("Temperatura wynosi zero stopni Celsjusza");
+            else
+                ss.SpeakAsync("Temperatura wynosi minus " + tempCel + " stopni Celsjusza");
+
+            if (feelsTempCel >= 0)
+                ss.SpeakAsync("Temperatura odczuwalna to " + feelsTempCel + " stopni Celsjusza");
+            else if (feelsTempCel == 0)
+                ss.SpeakAsync("Temperatura odczuwalna to zero stopni Celsjusza");
+            else
+                ss.SpeakAsync("Temperatura odczuwalna to minus " + feelsTempCel + " stopni Celsjusza");
+
+            ss.SpeakAsync("Dodatkowo aktualny wiatr wieje z prędkością " + weatherRoot.WeatherRoot.wind.speed + " metrów na sekundę");
         }
 
         private void Repozytorium(CarRepository carRepository)
@@ -215,6 +234,34 @@ namespace SWPCarAssistent
                 }
             }
         }
+
+       
+        private void Sre_SpeechRecognizedTelephoneNumbers(object sender, SpeechRecognizedEventArgs e)
+        {
+            float confidence = e.Result.Confidence;
+            if (confidence <= 0.6)
+            {
+                ss.SpeakAsync("Nie rozumiem, możesz powtórzyć?");
+            }
+            else
+            {
+                if (e.Result.Semantics["showNumbers"].Value.ToString() == "showNumbers")
+                {
+                    var contacts = carRepository.GetAllContacts();
+                    ss.SpeakAsync("Wyświetlam listę dostępnych kontaktów");
+                }
+                else if (e.Result.Semantics["callTo"].Value.ToString() != "null" && e.Result.Semantics["callTo"].ToString() != null)
+                {
+                    ss.SpeakAsync("Dzwonię do " + e.Result.Semantics["callTo"].Value.ToString());
+                    
+                    sre.UnloadAllGrammars();
+                    sre.SpeechRecognized -= Sre_SpeechRecognizedTelephoneNumbers;
+                    sre.SpeechRecognized += Sre_SpeechRecognized;
+                    sre.LoadGrammar(carAssistentGrammar);
+                }
+            }
+        }
+
         private static void Wlaczwylacz(SpeechRecognizedEventArgs e)
         {
             string lights = e.Result.Semantics["lights"].Value.ToString();
