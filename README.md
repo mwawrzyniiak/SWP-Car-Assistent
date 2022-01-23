@@ -6,6 +6,7 @@ What things you need to install the software and how to install them:
 .NET Framework in visual installer + Microsoft.Speeh  
 SQLEXPRESS + MSSQL  
 The sample database is placed in the walkthrough directory  
+API Key from openweathermap  
 
 ## Built With
 * .NET FRAMEWORK - Backend
@@ -24,5 +25,6 @@ Microsoft.Speech:
 [Microsoft Speech Platform](https://docs.microsoft.com/en-us/previous-versions/office/developer/speech-technologies/hh361572(v=office.14)?redirectedfrom=MSDN)  
 [Documentation](https://docs.microsoft.com/pl-pl/dotnet/api/system.speech.recognition?view=netframework-4.8)  
 [App Background](https://motopedia.otomoto.pl/fso-polonez/) 
-  
+[Weather API](https://openweathermap.org/)  
+
 The project was created for educational purposes
