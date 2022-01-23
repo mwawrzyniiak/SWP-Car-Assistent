@@ -9,7 +9,7 @@ The sample database is placed in the walkthrough directory
 
 ## Built With
 * .NET FRAMEWORK - Backend
-* TODO: Microsoft SQL Server
+* DB: Microsoft SQL Server
 * WPF - Frontend
 
 ## Authors
