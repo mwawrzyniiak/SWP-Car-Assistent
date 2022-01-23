@@ -55,7 +55,6 @@ namespace SWPCarAssistent
             CarRepository carRepository = new CarRepository();
             float confidence = e.Result.Confidence;
             StartupParams startupParamshelper = new StartupParams();
-
             if (confidence <= 0.6)
             {
                 ss.SpeakAsync("Nie rozumiem, możesz powtórzyć?");
@@ -71,10 +70,30 @@ namespace SWPCarAssistent
                 {
                     if (e.Result.Semantics["config"].Value.ToString() != null && e.Result.Semantics["config"].Value.ToString() != "null")
                     {
-                        GetStartupParamsFromRepository(carRepository);
+                        var startupParam = GetStartupParamsFromRepository(carRepository);
+                        textBlock1.Text = "";
+                        foreach(var param in startupParam.GetType().GetProperties())
+                        {
+                            if(param.GetValue(startupParam).ToString() == "True")
+                            {
+                                if (param.Name.ToString() == "CarWindows")
+                                    textBlock1.Text += "Otwarto szyby\n";
+                                if (param.Name.ToString() == "AirConditioning")
+                                    textBlock1.Text += "Włączono klimatyzację\n";
+                                if (param.Name.ToString() == "Heating")
+                                    textBlock1.Text += "Włączono ogrzewanie\n";
+                                if (param.Name.ToString() == "Radio")
+                                    textBlock1.Text += "Włączono Radio\n";
+                                if (param.Name.ToString() == "Wipers")
+                                    textBlock1.Text += "Włączono Wycieraczki\n";
+                                if (param.Name.ToString() == "Lights")
+                                    textBlock1.Text += "Włączono światła\n";
+
+                            }
+                        }
                     }
                     else
-                    {
+                    { 
                         string lights = e.Result.Semantics["lights"].Value.ToString();
                         if (lights == "null")
                         {
@@ -135,15 +154,27 @@ namespace SWPCarAssistent
             }
         }
 
-        private static void GetStartupParamsFromRepository(CarRepository carRepository)
+        private StartupParams GetStartupParamsFromRepository(CarRepository carRepository)
         {
             var startupParams = carRepository.GetStartupParams();
             if (startupParams != null)
             {
                 ss.SpeakAsync("Chcesz jechać jak zawsze, w związku z tym:");
+                if (startupParams.Lights == true)
+                {
+                    ss.SpeakAsync("Włączono światła");
+                }
+                if (startupParams.Wipers == true)
+                {
+                    ss.SpeakAsync("Włączono Wycieraczki");
+                }
                 if (startupParams.CarWindows == true)
                 {
-                    ss.SpeakAsync("Włączono szyby");
+                    ss.SpeakAsync("Otwarto szyby");
+                }
+                if (startupParams.Radio == true)
+                {
+                    ss.SpeakAsync("Włączono Radio");
                 }
                 if (startupParams.AirConditioning == true)
                 {
@@ -153,19 +184,9 @@ namespace SWPCarAssistent
                 {
                     ss.SpeakAsync("Włączono ogrzewanie");
                 }
-                if (startupParams.Radio == true)
-                {
-                    ss.SpeakAsync("Włączono Radio");
-                }
-                if (startupParams.Wipers == true)
-                {
-                    ss.SpeakAsync("Włączono Wycieraczki");
-                }
-                if (startupParams.Lights == true)
-                {
-                    ss.SpeakAsync("Włączono światła");
-                }
+                return startupParams;
             }
+            return null;
         }
     }
 }
