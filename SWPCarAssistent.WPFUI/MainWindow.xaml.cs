@@ -73,7 +73,7 @@ namespace SWPCarAssistent
             }
             else
             {
-                if(polonez == false && e.Result.Semantics["polonez"].Value.ToString() == "on")
+                if (polonez == false && e.Result.Semantics["polonez"].Value.ToString() == "on")
                 {
                     polonez = true;
                     ss.SpeakAsync("Co robimy?");
