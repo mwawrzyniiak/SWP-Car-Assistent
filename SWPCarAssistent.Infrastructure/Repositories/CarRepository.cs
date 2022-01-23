@@ -34,11 +34,11 @@ namespace SWPCarAssistent.Infrastructure.Repositories
                 context.SaveChanges();
             }
         }
-        public List<Radio> GetAllContacts()
+        public List<Contacts> GetAllContacts()
         {
             using (var context = new CarContext())
             {
-                return context.Radio.ToList();
+                return context.Contacts.ToList();
             }
         }
         public Contacts GetContact(string name)

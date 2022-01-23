@@ -1,0 +1,42 @@
+﻿<grammar version="1.0" xml:lang="pl-PL" root="rootRule" xmlns="http://www.w3.org/2001/06/grammar"
+         tag-format="semantics/1.0">
+	<rule id="rootRule">
+		<ruleref uri="#showNumbers"></ruleref>
+		<tag>out.showNumbers=rules.latest();</tag>
+		<ruleref uri="#callTo"></ruleref>
+		<tag>out.callTo=rules.latest();</tag>
+	</rule>
+
+	<rule id="showNumbers">
+		<one-of>
+			<item>
+				Wyświetl numery <tag>out="showNumbers"</tag>
+			</item>
+			<item>
+				Pokaż numery <tag>out="showNumbers"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="callTo">
+		<one-of>
+			<item>
+				Zadzwoń do mamy<tag>out="mama"</tag>
+			</item>
+			<item>
+				Zadzwoń do taty<tag>out="tata"</tag>
+			</item>
+			<item>
+				Zadzwoń do siostry<tag>out="siostra"</tag>
+			</item>
+			<item>
+				Zadzwoń do brata<tag>out="brat"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+</grammar>
