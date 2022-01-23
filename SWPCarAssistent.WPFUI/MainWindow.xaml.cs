@@ -43,10 +43,11 @@ namespace SWPCarAssistent
             openWeatherApiHttpClient = new OpenWeatherApiHttpClient(simpleAppConfigurations.API_KEY);
             carRepository = new CarRepository();
 
-            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
-            Uri uri = new Uri(path);
-            mediaPlayer.Open(uri);
-            mediaPlayer.Play();
+           //string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
+           //Uri uri = new Uri(path);
+           // mediaPlayer.Volume = 0.05;
+           // mediaPlayer.Open(uri);
+          // mediaPlayer.Play();
             ConfigureSpeecher();
         }
 
@@ -315,8 +316,13 @@ namespace SWPCarAssistent
                 }
                 else if (e.Result.Semantics["station"].Value.ToString() != "null" && e.Result.Semantics["station"].ToString() != null)
                 {
-                    ss.SpeakAsync("Aktualnie leci:  " + e.Result.Semantics["station"].Value.ToString());
+                    string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio1.mp3");
+                    Uri uri = new Uri(path);
+                    mediaPlayer.Volume = 0.05;
+                    mediaPlayer.Open(uri);
+                    mediaPlayer.Play();
 
+                    ss.SpeakAsync("Aktualnie leci:  " + e.Result.Semantics["station"].Value.ToString());
                     sre.UnloadAllGrammars();
                     sre.SpeechRecognized -= Sre_SpeechRecognizedRadio;
                     sre.SpeechRecognized += Sre_SpeechRecognized;
@@ -462,7 +468,7 @@ namespace SWPCarAssistent
                 }
             }
         }
-        private static void Dopytywanie(SpeechRecognizedEventArgs e)
+        private void Dopytywanie(SpeechRecognizedEventArgs e)
         {
             string lights = e.Result.Semantics["lights"].Value.ToString();
             if (lights == "null" && startupParamshelper.Lights == false)
@@ -570,6 +576,7 @@ namespace SWPCarAssistent
                 {
                     if (radio == "offRadio")
                     {
+                        mediaPlayer.Stop();
                         startupParamshelper.Radio = false;
                     }
                 }

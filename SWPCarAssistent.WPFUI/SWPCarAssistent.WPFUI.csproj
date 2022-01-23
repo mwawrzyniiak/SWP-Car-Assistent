@@ -139,9 +139,6 @@
       <Name>SWPCarAssistent.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Polonez_1500_wnetzre.jpg" />
-  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Content Include="Grammars\CarAssistantGrammar.xml">
@@ -153,8 +150,10 @@
     <Content Include="Grammars\RadioGrammar.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\Polonez_1500_wnetzre.jpg" />
     <Content Include="Voice\Rafonix we nie kozacz.mp3" />
     <Content Include="Voice\rafonix2.mp3" />
+    <Content Include="Voice\Radio1.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

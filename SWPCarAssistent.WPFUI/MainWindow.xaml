@@ -10,7 +10,7 @@
         <ImageBrush ImageSource="/Images/Polonez_1500_wnetzre.jpg" Stretch="Fill" />
     </Window.Background>
     <Grid>
-        <TextBlock Name="textBlock1" HorizontalAlignment="Left" Margin="664,19,0,0" TextWrapping="Wrap" Text="Cześć! Jestem asystentem samochodu Polonez. Powiedz Hej Polonez, aby rozpocząć." VerticalAlignment="Top" Foreground="RosyBrown" FontStyle="Oblique" Height="128" Width="407"/>
+        <TextBlock Name="textBlock1" HorizontalAlignment="Left" Margin="664,19,0,0" TextWrapping="Wrap" Text="Cześć! Jestem asystentem samochodu Polonez. Powiedz Hej Polonez, aby rozpocząć." VerticalAlignment="Top" Foreground="RosyBrown" FontStyle="Oblique" Height="128" Width="407" FontSize="13"/>
 
     </Grid>
 </Window>
