@@ -9,7 +9,7 @@ The sample database is placed in the walkthrough directory
 
 ## Built With
 * .NET FRAMEWORK - Backend
-* DB: Microsoft SQL Server
+* DB - Microsoft SQL Server
 * WPF - Frontend
 
 ## Authors
@@ -23,6 +23,6 @@ The sample database is placed in the walkthrough directory
 Microsoft.Speech:  
 [Microsoft Speech Platform](https://docs.microsoft.com/en-us/previous-versions/office/developer/speech-technologies/hh361572(v=office.14)?redirectedfrom=MSDN)  
 [Documentation](https://docs.microsoft.com/pl-pl/dotnet/api/system.speech.recognition?view=netframework-4.8)  
-[image to be used as a background](https://motopedia.otomoto.pl/fso-polonez/) 
+[App Background](https://motopedia.otomoto.pl/fso-polonez/) 
   
 The project was created for educational purposes
