@@ -33,7 +33,6 @@ namespace SWPCarAssistent
         private bool polonez = false;
         public static StartupParams startupParamshelper = new StartupParams();
         
-        private bool start = false;
 
         public MainWindow()
         {
@@ -107,31 +106,7 @@ namespace SWPCarAssistent
                     }
                     if (e.Result.Semantics["weather"].Value.ToString() != "null" && e.Result.Semantics["weather"].ToString() != null)
                     {
-                        var city = e.Result.Semantics["weather"].Value.ToString();
-                        // var result = openWeatherApiHttpClient.GetQueryAsync(city);
-                        var task = Task.Run(async () => await openWeatherApiHttpClient.GetQueryAsync(city));
-                        var weatherRoot = task.Result;
-
-                        int tempCel = (int)(weatherRoot.WeatherRoot.main.temp - 273.15);
-                        int feelsTempCel = (int)(weatherRoot.WeatherRoot.main.feels_like - 273.15);
-
-                        ss.SpeakAsync("Pogoda w mieście " + city + " jest następująca");
-
-                        if (tempCel > 0)
-                            ss.SpeakAsync("Temperatura wynosi " + tempCel + " stopni Celsjusza");
-                        else if (tempCel == 0)
-                            ss.SpeakAsync("Temperatura wynosi zero stopni Celsjusza");
-                        else
-                            ss.SpeakAsync("Temperatura wynosi minus " + tempCel + " stopni Celsjusza");
-
-                        if (feelsTempCel >= 0)
-                            ss.SpeakAsync("Temperatura odczuwalna to " + feelsTempCel + " stopni Celsjusza");
-                        else if (feelsTempCel == 0)
-                            ss.SpeakAsync("Temperatura odczuwalna to zero stopni Celsjusza");
-                        else
-                            ss.SpeakAsync("Temperatura odczuwalna to minus " + feelsTempCel + " stopni Celsjusza");
-
-                        ss.SpeakAsync("Dodatkowo aktualny wiatr wieje z prędkością " + weatherRoot.WeatherRoot.wind.speed + " metrów na sekundę");
+                        WeatherDialogue(e);
                     }
                     else
                     {
@@ -159,50 +134,7 @@ namespace SWPCarAssistent
                 }
             }
         }
-                if (e.Result.Semantics["start"].Value.ToString() == "offEngine" || e.Result.Semantics["start"].Value.ToString() == "onEngine")
-                {
-                    start = true;
-                    ss.SpeakAsync("Silnik został uruchomiony");
-                }
-                if (e.Result.Semantics["weather"].Value.ToString() != "null" && e.Result.Semantics["weather"].ToString() != null)
-                {
-                    WeatherDialogue(e);
-                    return;
-                }
-                else if(e.Result.Semantics["telephoneContacts"].Value.ToString() != "null" && e.Result.Semantics["telephoneContacts"].ToString() != null)
-                {
-                    sre.UnloadAllGrammars();
-                    sre.SpeechRecognized -= Sre_SpeechRecognized;
-                    sre.SpeechRecognized += Sre_SpeechRecognizedTelephoneNumbers;
-                    sre.LoadGrammar(phoneInteractionGrammar);
-                    ss.SpeakAsync("Co chcesz zrobić z listą kontaktów? Wyświetlić czy do kogoś zadzwonić?");
-                }
-                else
-                {
-                    if (start == false)
-                    {
-                        if (e.Result.Semantics["config"].Value.ToString() != null && e.Result.Semantics["config"].Value.ToString() != "null")
-                        {
-                            Repozytorium(carRepository);
-                        }
-                        else
-                        {
-                            Dopytywanie(e);
-                        }
-                    }
-                    if (start == true)
-                    {
-                        Wlaczwylacz(e);
-                    }
-                }
-            }
-            textBlock1.Text = "";
-            foreach (var helper in startupParamshelper.GetType().GetProperties())
-            {
-                textBlock1.Text += helper.Name + " " + helper.GetValue(startupParamshelper).ToString() + "\n";
-            }
-        }
-
+               
         private void WeatherDialogue(SpeechRecognizedEventArgs e)
         {
             var city = e.Result.Semantics["weather"].Value.ToString();
