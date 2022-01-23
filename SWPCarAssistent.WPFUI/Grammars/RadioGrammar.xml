@@ -13,6 +13,12 @@
 				Wyświetl radia <tag>out="Radios"</tag>
 			</item>
 			<item>
+				Wyświetl listę stacji <tag>out="Radios"</tag>
+			</item>
+			<item>
+				Wyświetl stacje <tag>out="Radios"</tag>
+			</item>
+			<item>
 				<tag>out="null"</tag>
 			</item>
 		</one-of>
@@ -23,19 +29,37 @@
 				Włącz RadioZet<tag>out="RadioZet"</tag>
 			</item>
 			<item>
+				Puść RadioZet<tag>out="RadioZet"</tag>
+			</item>
+			<item>
 				Włącz Radio Maryja<tag>out="RadioMaryja"</tag>
+			</item>
+			<item>
+				Puść Radio Maryja<tag>out="RadioMaryja"</tag>
 			</item>
 			<item>
 				Włącz Eskę <tag>out="Eska"</tag>
 			</item>
 			<item>
+				Puść Eskę <tag>out="Eska"</tag>
+			</item>
+			<item>
 				Włącz Vox Fm<tag>out="VoxFm"</tag>
+			</item>
+			<item>
+				Puść Vox Fm<tag>out="VoxFm"</tag>
 			</item>
 			<item>
 				Włącz Polskie Radio<tag>out="PolskieRadio"</tag>
 			</item>
 			<item>
+				Puść Polskie Radio<tag>out="PolskieRadio"</tag>
+			</item>
+			<item>
 				Włącz RmfFm<tag>out="RmfFm"</tag>
+			</item>
+			<item>
+				Puść RmfFm<tag>out="RmfFm"</tag>
 			</item>
 			<item>
 				<tag>out="null"</tag>

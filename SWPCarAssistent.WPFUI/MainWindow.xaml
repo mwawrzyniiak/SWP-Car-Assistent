@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWPCarAssistent"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1200">
+        Title="Asystent" Height="900" Width="1200">
     <Window.Background>
         <ImageBrush ImageSource="/Images/Polonez_1500_wnetzre.jpg" Stretch="Fill" />
     </Window.Background>
