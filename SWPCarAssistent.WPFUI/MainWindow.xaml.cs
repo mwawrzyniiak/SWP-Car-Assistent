@@ -21,14 +21,15 @@ namespace SWPCarAssistent
         private Grammar carAssistentGrammar;
         private MediaPlayer mediaPlayer = new MediaPlayer();
         private bool start = false;
+        public static StartupParams startupParamshelper = new StartupParams();
 
         public MainWindow()
         {
             InitializeComponent();
-            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
-            Uri uri = new Uri(path);
-            mediaPlayer.Open(uri);
-            mediaPlayer.Play();
+            //string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
+            //Uri uri = new Uri(path);
+            // mediaPlayer.Open(uri);
+            //mediaPlayer.Play();
             ConfigureSpeecher();
         }
 
@@ -43,7 +44,7 @@ namespace SWPCarAssistent
             sre.SpeechRecognized += Sre_SpeechRecognized;
 
             carAssistentGrammar = new Grammar("Grammars\\CarAssistantGrammar.xml");
-            carAssistentGrammar.Enabled = true; 
+            carAssistentGrammar.Enabled = true;
             sre.LoadGrammar(carAssistentGrammar);
             sre.RecognizeAsync(RecognizeMode.Multiple);
 
@@ -54,7 +55,6 @@ namespace SWPCarAssistent
         {
             CarRepository carRepository = new CarRepository();
             float confidence = e.Result.Confidence;
-            StartupParams startupParamshelper = new StartupParams();
             if (confidence <= 0.6)
             {
                 ss.SpeakAsync("Nie rozumiem, możesz powtórzyć?");
@@ -72,83 +72,258 @@ namespace SWPCarAssistent
                     {
                         var startupParam = GetStartupParamsFromRepository(carRepository);
                         textBlock1.Text = "";
-                        foreach(var param in startupParam.GetType().GetProperties())
+                        foreach (var param in startupParamshelper.GetType().GetProperties())
                         {
-                            if(param.GetValue(startupParam).ToString() == "True")
+                            if (param.GetValue(startupParamshelper).ToString() == "False")
                             {
                                 if (param.Name.ToString() == "CarWindows")
-                                    textBlock1.Text += "Otwarto szyby\n";
+                                {
+                                    if (startupParamshelper.CarWindows == false && startupParam.CarWindows == true)
+                                    {
+                                        textBlock1.Text += "Otwarto szyby\n";
+                                        startupParamshelper.CarWindows = true;
+                                    }
+                                    else
+                                    {
+                                        textBlock1.Text += "Szyby są już otwarte\n";
+                                    }
+                                }
                                 if (param.Name.ToString() == "AirConditioning")
-                                    textBlock1.Text += "Włączono klimatyzację\n";
+                                {
+                                    if (startupParamshelper.AirConditioning == false && startupParam.AirConditioning == true)
+                                    {
+                                        textBlock1.Text += "Włączono nawiew\n";
+                                        startupParamshelper.AirConditioning = true;
+                                    }
+                                    else
+                                    {
+                                        textBlock1.Text += "Nawiew jest już włączony\n";
+                                    }
+                                }
                                 if (param.Name.ToString() == "Heating")
-                                    textBlock1.Text += "Włączono ogrzewanie\n";
+                                {
+                                    if (startupParamshelper.Heating == false && startupParam.Heating == true)
+                                    {
+                                        textBlock1.Text += "Włączono ogrzewanie\n";
+                                        startupParamshelper.Heating = true;
+                                    }
+                                    else
+                                    {
+                                        textBlock1.Text += "Ogrzewanie jest już włączone\n";
+                                    }
+                                }
                                 if (param.Name.ToString() == "Radio")
-                                    textBlock1.Text += "Włączono Radio\n";
+                                {
+                                    if (startupParamshelper.Radio == false && startupParam.Radio == true)
+                                    {
+                                        textBlock1.Text += "Włączono radio\n";
+                                        startupParamshelper.Radio = true;
+                                    }
+                                    else
+                                    {
+                                        textBlock1.Text += "Radio jest już włączone\n";
+                                    }
+                                }
                                 if (param.Name.ToString() == "Wipers")
-                                    textBlock1.Text += "Włączono Wycieraczki\n";
+                                {
+                                    if (startupParamshelper.Wipers == false && startupParam.Wipers == true)
+                                    {
+                                        textBlock1.Text += "Włączono wycieraczki\n";
+                                        startupParamshelper.Wipers = true;
+                                    }
+                                    else
+                                    {
+                                        textBlock1.Text += "Wycieraczki są już włączone\n";
+                                    }
+                                }
                                 if (param.Name.ToString() == "Lights")
-                                    textBlock1.Text += "Włączono światła\n";
+                                {
+                                    if (startupParamshelper.Lights == false && startupParam.Lights == true)
+                                    {
+                                        textBlock1.Text += "Włączono światła\n";
+                                        startupParamshelper.Lights = true;
+                                    }
+                                    else
+                                    {
+                                        textBlock1.Text += "Światła są już włączone\n";
+                                    }
+                                }
 
                             }
                         }
                     }
                     else
-                    { 
-                        string lights = e.Result.Semantics["lights"].Value.ToString();
-                        if (lights == "null")
-                        {
-                            ss.SpeakAsync("Czy włączyć światła?");
-                        }
-                        else
-                        {
-                            if (lights == "onLights")
-                                startupParamshelper.Lights = true;
-                            else
-                                startupParamshelper.Lights = false;
-                        }
-                        if (e.Result.Semantics["wipers"].Value.ToString() == "null")
-                        {
-                            ss.SpeakAsync("Czy włączyć wycieraczki?");
-                        }
-                        else
-                        {
-                            if (e.Result.Semantics["wipers"].Value.ToString() == "onWipers")
-                                startupParamshelper.Wipers = true;
-                            else
-                                startupParamshelper.Wipers = false;
-                        }
-                        if (e.Result.Semantics["carWindows"].Value.ToString() == "null")
-                        {
-                            ss.SpeakAsync("Czy uchylić szyby?");
-                        }
-                        else
-                        {
+                    {
+                        Dopytywanie(e);
+                    }
+                }
+            }
+        }
 
-                        }
-                        if (e.Result.Semantics["radio"].Value.ToString() == "null")
-                        {
-                            ss.SpeakAsync("Czy włączyć radio?");
-                        }
-                        else
-                        {
+        private static void Dopytywanie(SpeechRecognizedEventArgs e)
+        {
+            string lights = e.Result.Semantics["lights"].Value.ToString();
+            if (lights == "null" && startupParamshelper.Lights == false)
+            {
+                ss.SpeakAsync("Czy włączyć światła?");
+            }
+            else
+            {
+                if (lights == "onLights")
+                {
+                    if (startupParamshelper.Lights != false)
+                    {
+                        ss.SpeakAsync("Światła są już włączone");
 
-                        }
-                        if (e.Result.Semantics["airConditioning"].Value.ToString() == "null")
-                        {
-                            ss.SpeakAsync("Czy włączyć nawiew?");
-                        }
-                        else
-                        {
+                    }
+                    else
+                    {
+                        startupParamshelper.Lights = true;
+                    }
+                }
+                else
+                {
+                    if (lights == "offLights" && startupParamshelper.Lights == true)
+                    {
+                        ss.SpeakAsync("Wyłączono światła");
+                        startupParamshelper.Lights = false;
+                    }
+                }
+            }
+            string wipers = e.Result.Semantics["wipers"].Value.ToString();
+            if (wipers == "null" && startupParamshelper.Wipers == false)
+            {
+                ss.SpeakAsync("Czy włączyć wycieraczki?");
+            }
+            else
+            {
+                if (wipers == "onWipers")
+                {
+                    if (startupParamshelper.Wipers != false)
+                    {
+                        ss.SpeakAsync("Wycieraczki są już włączone");
 
-                        }
-                        if (e.Result.Semantics["heating"].Value.ToString() == "null")
-                        {
-                            ss.SpeakAsync("Czy włączyć ogrzewanie?");
-                        }
-                        else
-                        {
+                    }
+                    else
+                    {
+                        startupParamshelper.Wipers = true;
+                    }
+                }
+                else
+                {
+                    if (wipers == "offWipers" && startupParamshelper.Wipers == true)
+                    {
+                        ss.SpeakAsync("Wyłączono wycieraczki");
+                        startupParamshelper.Wipers = false;
+                    }
+                }
+            }
+            string carWindows = e.Result.Semantics["carWindows"].Value.ToString();
+            if (carWindows == "null" && startupParamshelper.CarWindows == false)
+            {
+                ss.SpeakAsync("Czy uchylić szyby?");
+            }
+            else
+            {
+                if (carWindows == "openCarWindows")
+                {
+                    if (startupParamshelper.CarWindows != false)
+                    {
+                        ss.SpeakAsync("Szyby są już otworzone");
 
-                        }
+                    }
+                    else
+                    {
+                        startupParamshelper.CarWindows = true;
+                    }
+                }
+                else
+                {
+                    if (carWindows == "closeCarWindows")
+                    {
+                        startupParamshelper.CarWindows = false;
+                    }
+                }
+            }
+            string radio = e.Result.Semantics["radio"].Value.ToString();
+            if (radio == "null" && startupParamshelper.Radio == false)
+            {
+                ss.SpeakAsync("Czy włączyć radio?");
+            }
+            else
+            {
+                if (radio == "onRadio")
+                {
+                    if (startupParamshelper.Radio != false)
+                    {
+                        ss.SpeakAsync("Radio jest już włączone");
+
+                    }
+                    else
+                    {
+                        startupParamshelper.Radio = true;
+                    }
+                }
+                else
+                {
+                    if (radio == "offRadio")
+                    {
+                        startupParamshelper.Radio = false;
+                    }
+                }
+            }
+            string airConditioning = e.Result.Semantics["airConditioning"].Value.ToString();
+            if (airConditioning == "null" && startupParamshelper.AirConditioning == false)
+            {
+                ss.SpeakAsync("Czy włączyć nawiew?");
+            }
+            else
+            {
+                if (airConditioning == "onAirConditioning")
+                {
+                    if (startupParamshelper.AirConditioning != false)
+                    {
+                        startupParamshelper.AirConditioning = true;
+                        ss.SpeakAsync("Nawiew jest już włączone");
+
+                    }
+                    else
+                    {
+                        startupParamshelper.AirConditioning = true;
+                    }
+                }
+                else
+                {
+                    if (airConditioning == "offAirConditioning")
+                    {
+                        startupParamshelper.AirConditioning = false;
+                    }
+                }
+            }
+            string heating = e.Result.Semantics["heating"].Value.ToString();
+            if (heating == "null" && startupParamshelper.Heating == false)
+            {
+                ss.SpeakAsync("Czy włączyć ogrzewanie?");
+            }
+            else
+            {
+                if (heating == "onHeating")
+                {
+                    if (startupParamshelper.Heating != false)
+                    {
+                        ss.SpeakAsync("Ogrzewanie jest już włączone");
+
+                    }
+                    else
+                    {
+                        startupParamshelper.Heating = true;
+                    }
+                }
+                else
+                {
+                    if (heating == "offHeating")
+                    {
+                        startupParamshelper.Heating = false;
                     }
                 }
             }
@@ -178,7 +353,7 @@ namespace SWPCarAssistent
                 }
                 if (startupParams.AirConditioning == true)
                 {
-                    ss.SpeakAsync("Włączono klimatyzację");
+                    ss.SpeakAsync("Włączono nawiew");
                 }
                 if (startupParams.Heating == true)
                 {
