@@ -15,6 +15,8 @@
 		<tag>out.heating=rules.latest();</tag>
 		<ruleref uri="#config"></ruleref>
 		<tag>out.config=rules.latest();</tag>
+		<ruleref uri="#weather"></ruleref>
+		<tag>out.weather=rules.latest();</tag>
 	</rule>
 	<rule id="lights">
 		<one-of>
@@ -99,6 +101,55 @@
 			<item>
 				Załaduj domyślne ustawienia <tag>out="getConfig"</tag>
 			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="weather">
+		<one-of>
+			<item>
+				Jaka jest pogoda w Warszawie<tag>out="Warszawa"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda w Lublinie<tag>out="Lublin"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda w Siedlcach<tag>out="Siedlce"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda w Poznaniu<tag>out="Poznan"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda w Łodzi<tag>out="Lodz"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda w Krakowie<tag>out="Krakow"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda w Gdańsku<tag>out="Gdansk"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda w Bydgoszczy<tag>out="Bydgoszcz"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda w Toruniu<tag>out="Torun"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda w Szczecinie<tag>out="Szczecin"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda w Białymstoku<tag>out="Bialystok"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda w Zielonej Górze<tag>out="ZielonaGora"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda w Katowicach<tag>out="Katowice"</tag>
+			</item>
+			<item>
+				Jaka jest pogoda we Wrocławiu<tag>out="Wroclaw"</tag>
+			</item>			
 			<item>
 				<tag>out="null"</tag>
 			</item>

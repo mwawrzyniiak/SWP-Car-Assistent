@@ -20,14 +20,15 @@ namespace SWPCarAssistent
         private static SpeechRecognitionEngine sre;
         private Grammar carAssistentGrammar;
         private MediaPlayer mediaPlayer = new MediaPlayer();
+        private bool start = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
-            Uri uri = new Uri(path);
-            mediaPlayer.Open(uri);
-            mediaPlayer.Play();
+           // string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
+           // Uri uri = new Uri(path);
+          //  mediaPlayer.Open(uri);
+          //  mediaPlayer.Play();
             ConfigureSpeecher();
         }
 
@@ -62,67 +63,73 @@ namespace SWPCarAssistent
             }
             else
             {
-                if (e.Result.Semantics["config"].Value.ToString() != null && e.Result.Semantics["config"].Value.ToString() != "null")
+                if (e.Result.Semantics["weather"].Value.ToString() != "null" && e.Result.Semantics["weather"].ToString() != null)
                 {
-                    GetStartupParamsFromRepository(carRepository);
+                    ss.SpeakAsync(e.Result.Semantics["weather"].Value.ToString());
                 }
                 else
                 {
-                    string lights = e.Result.Semantics["lights"].Value.ToString();
-                    if (lights == "null")
+                    if (e.Result.Semantics["config"].Value.ToString() != null && e.Result.Semantics["config"].Value.ToString() != "null")
                     {
-                        ss.SpeakAsync("Czy włączyć światła?");
+                        GetStartupParamsFromRepository(carRepository);
                     }
                     else
                     {
-                        if (lights == "onLights")
-                            startupParamshelper.Lights = true;
+                        string lights = e.Result.Semantics["lights"].Value.ToString();
+                        if (lights == "null")
+                        {
+                            ss.SpeakAsync("Czy włączyć światła?");
+                        }
                         else
-                            startupParamshelper.Lights = false;
-                    }
-                    if (e.Result.Semantics["wipers"].Value.ToString() == "null")
-                    {
-                        ss.SpeakAsync("Czy włączyć wycieraczki?");
-                    }
-
-                    else
-                    {
-                        if (e.Result.Semantics["wipers"].Value.ToString() == "onWipers")
-                            startupParamshelper.Wipers = true;
+                        {
+                            if (lights == "onLights")
+                                startupParamshelper.Lights = true;
+                            else
+                                startupParamshelper.Lights = false;
+                        }
+                        if (e.Result.Semantics["wipers"].Value.ToString() == "null")
+                        {
+                            ss.SpeakAsync("Czy włączyć wycieraczki?");
+                        }
                         else
-                            startupParamshelper.Wipers = false;
-                    }
-                    if (e.Result.Semantics["carWindows"].Value.ToString() == "null")
-                    {
-                        ss.SpeakAsync("Czy uchylić szyby?");
-                    }
-                    else
-                    {
+                        {
+                            if (e.Result.Semantics["wipers"].Value.ToString() == "onWipers")
+                                startupParamshelper.Wipers = true;
+                            else
+                                startupParamshelper.Wipers = false;
+                        }
+                        if (e.Result.Semantics["carWindows"].Value.ToString() == "null")
+                        {
+                            ss.SpeakAsync("Czy uchylić szyby?");
+                        }
+                        else
+                        {
 
-                    }
-                    if (e.Result.Semantics["radio"].Value.ToString() == "null")
-                    {
-                        ss.SpeakAsync("Czy włączyć radio?");
-                    }
-                    else
-                    {
+                        }
+                        if (e.Result.Semantics["radio"].Value.ToString() == "null")
+                        {
+                            ss.SpeakAsync("Czy włączyć radio?");
+                        }
+                        else
+                        {
 
-                    }
-                    if (e.Result.Semantics["airConditioning"].Value.ToString() == "null")
-                    {
-                        ss.SpeakAsync("Czy włączyć nawiew?");
-                    }
-                    else
-                    {
+                        }
+                        if (e.Result.Semantics["airConditioning"].Value.ToString() == "null")
+                        {
+                            ss.SpeakAsync("Czy włączyć nawiew?");
+                        }
+                        else
+                        {
 
-                    }
-                    if (e.Result.Semantics["heating"].Value.ToString() == "null")
-                    {
-                        ss.SpeakAsync("Czy włączyć ogrzewanie?");
-                    }
-                    else
-                    {
+                        }
+                        if (e.Result.Semantics["heating"].Value.ToString() == "null")
+                        {
+                            ss.SpeakAsync("Czy włączyć ogrzewanie?");
+                        }
+                        else
+                        {
 
+                        }
                     }
                 }
             }
