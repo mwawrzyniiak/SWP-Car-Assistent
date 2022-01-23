@@ -150,6 +150,9 @@
     <Content Include="Grammars\PhoneInteractionGrammar.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Grammars\RadioGrammar.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Voice\Rafonix we nie kozacz.mp3" />
     <Content Include="Voice\rafonix2.mp3" />
   </ItemGroup>

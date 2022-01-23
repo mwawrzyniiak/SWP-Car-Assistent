@@ -1,0 +1,45 @@
+﻿<grammar version="1.0" xml:lang="pl-PL" root="rootRule" xmlns="http://www.w3.org/2001/06/grammar"
+         tag-format="semantics/1.0">
+	<rule id="rootRule">
+		<ruleref uri="#favouriteRadio"></ruleref>
+		<tag>out.favouriteRadio=rules.latest();</tag>
+		<ruleref uri="#station"></ruleref>
+		<tag>out.station=rules.latest();</tag>
+	</rule>
+
+	<rule id="favouriteRadio">
+		<one-of>
+			<item>
+				Wyświetl numery <tag>out="showNumbers"</tag>
+			</item>
+			<item>
+				Pokaż numery <tag>out="showNumbers"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="station">
+		<one-of>
+			<item>
+				Włącz RadioZet<tag>out="RadioZet"</tag>
+			</item>
+			<item>
+				Włącz Radio Maryja<tag>out="RadioMaryja"</tag>
+			</item>
+			<item>
+				Włącz Eskę <tag>out="Eska"</tag>
+			</item>
+			<item>
+				Włącz VoxFm<tag>out="VoxFm"</tag>
+			</item>
+			<item>
+				Włącz Polskie Radio<tag>out="PolskieRadio"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+</grammar>
