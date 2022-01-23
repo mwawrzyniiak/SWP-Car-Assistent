@@ -10,7 +10,6 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Media;
 
 namespace SWPCarAssistent
@@ -39,18 +38,13 @@ namespace SWPCarAssistent
         public MainWindow()
         {
             InitializeComponent();
-            
+
             ResizeMode = ResizeMode.NoResize;
-            
+
             simpleAppConfigurations = new SimpleAppConfigurations();
             openWeatherApiHttpClient = new OpenWeatherApiHttpClient(simpleAppConfigurations.API_KEY);
             carRepository = new CarRepository();
 
-            //string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
-            //Uri uri = new Uri(path);
-            // mediaPlayer.Volume = 0.05;
-            // mediaPlayer.Open(uri);
-            // mediaPlayer.Play();
             listBoxHelper.Visibility = Visibility.Collapsed;
             ConfigureSpeecher();
         }
@@ -159,14 +153,14 @@ namespace SWPCarAssistent
                         }
                     }
                     textBlock1.Text = "";
-                    
+
                     foreach (var helper in startupParamshelper.GetType().GetProperties())
                     {
                         string textValue = "";
                         bool propertyValue = false;
                         try
                         {
-                            propertyValue = (bool) (helper.GetValue(startupParamshelper));
+                            propertyValue = (bool)(helper.GetValue(startupParamshelper));
                         }
                         catch (Exception ex)
                         {
@@ -220,7 +214,7 @@ namespace SWPCarAssistent
                             default:
                                 break;
                         }
-                        textBlock1.Text += textValue  + "\n";
+                        textBlock1.Text += textValue + "\n";
                     }
                 }
             }
@@ -229,7 +223,6 @@ namespace SWPCarAssistent
         private void WeatherDialogue(SpeechRecognizedEventArgs e)
         {
             var city = e.Result.Semantics["weather"].Value.ToString();
-            // var result = openWeatherApiHttpClient.GetQueryAsync(city);
             var task = Task.Run(async () => await openWeatherApiHttpClient.GetQueryAsync(city));
             var weatherRoot = task.Result;
 
