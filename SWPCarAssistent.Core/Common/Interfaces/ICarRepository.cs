@@ -8,7 +8,7 @@ namespace SWPCarAssistent.Core.Common.Interfaces
         void AddNewContact(Contacts Contacts);
         void AddNewRadioStation(Radio Radio);
         void ChangeStartupParams(StartupParams startupParams);
-        List<Radio> GetAllContacts();
+        List<Contacts> GetAllContacts();
         Contacts GetContact(string name);
         Radio GetRadioStation(string radioName);
         StartupParams GetStartupParams();
