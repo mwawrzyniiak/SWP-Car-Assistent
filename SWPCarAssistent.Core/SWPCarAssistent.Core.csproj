@@ -56,6 +56,7 @@
     <Compile Include="Common\Entities\Radio.cs" />
     <Compile Include="Common\Entities\StartupParams.cs" />
     <Compile Include="Common\Exceptions\WeatherNotFoundException.cs" />
+    <Compile Include="Common\Interfaces\IAppConfigurations.cs" />
     <Compile Include="Common\Interfaces\IOpenWeatherMapService.cs" />
     <Compile Include="Common\Models\Clouds.cs" />
     <Compile Include="Common\Models\Coord.cs" />

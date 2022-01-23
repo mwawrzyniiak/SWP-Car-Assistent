@@ -8,6 +8,9 @@ using System.Windows.Media;
 using Microsoft.Win32;
 using System.IO;
 using SWPCarAssistent.Core.Common.Entities;
+using SWPCarAssistent.Infrastructure.Clients;
+using SWPCarAssistent.Infrastructure.Configurations;
+using System.Threading.Tasks;
 
 namespace SWPCarAssistent
 {
@@ -16,6 +19,9 @@ namespace SWPCarAssistent
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly SimpleAppConfigurations simpleAppConfigurations;
+        private readonly OpenWeatherApiHttpClient openWeatherApiHttpClient;
+        
         private static SpeechSynthesizer ss;
         private static SpeechRecognitionEngine sre;
         private Grammar carAssistentGrammar;
@@ -26,6 +32,10 @@ namespace SWPCarAssistent
         public MainWindow()
         {
             InitializeComponent();
+
+            simpleAppConfigurations = new SimpleAppConfigurations();
+            openWeatherApiHttpClient = new OpenWeatherApiHttpClient(simpleAppConfigurations.API_KEY);
+
             //string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
             //Uri uri = new Uri(path);
             // mediaPlayer.Open(uri);
@@ -64,7 +74,31 @@ namespace SWPCarAssistent
             {
                 if (e.Result.Semantics["weather"].Value.ToString() != "null" && e.Result.Semantics["weather"].ToString() != null)
                 {
-                    ss.SpeakAsync(e.Result.Semantics["weather"].Value.ToString());
+                    var city = e.Result.Semantics["weather"].Value.ToString();
+                    // var result = openWeatherApiHttpClient.GetQueryAsync(city);
+                    var task = Task.Run(async () => await openWeatherApiHttpClient.GetQueryAsync(city));
+                    var weatherRoot = task.Result;
+
+                    int tempCel = (int) (weatherRoot.WeatherRoot.main.temp - 273.15);
+                    int feelsTempCel = (int) (weatherRoot.WeatherRoot.main.feels_like - 273.15);
+
+                    ss.SpeakAsync("Pogoda w mieście " + city + " jest następująca");
+
+                    if(tempCel > 0)
+                        ss.SpeakAsync("Temperatura wynosi "+ tempCel + " stopni Celsjusza");
+                    else if(tempCel == 0)
+                        ss.SpeakAsync("Temperatura wynosi zero stopni Celsjusza");
+                    else
+                        ss.SpeakAsync("Temperatura wynosi minus "+ tempCel + " stopni Celsjusza");
+
+                    if (feelsTempCel >= 0)
+                        ss.SpeakAsync("Temperatura odczuwalna to " + feelsTempCel + " stopni Celsjusza");
+                    else if(feelsTempCel == 0)
+                        ss.SpeakAsync("Temperatura odczuwalna to zero stopni Celsjusza");
+                    else
+                        ss.SpeakAsync("Temperatura odczuwalna to minus " + feelsTempCel + " stopni Celsjusza");
+
+                    ss.SpeakAsync("Dodatkowo aktualny wiatr wieje z prędkością " + weatherRoot.WeatherRoot.wind.speed + " metrów na sekundę");
                 }
                 else
                 {
