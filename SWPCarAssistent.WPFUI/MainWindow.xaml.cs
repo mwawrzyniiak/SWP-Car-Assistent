@@ -27,6 +27,7 @@ namespace SWPCarAssistent
         private Grammar carAssistentGrammar;
         private MediaPlayer mediaPlayer = new MediaPlayer();
         private bool start = false;
+        private bool polonez = false;
         public static StartupParams startupParamshelper = new StartupParams();
 
         public MainWindow()
@@ -58,7 +59,7 @@ namespace SWPCarAssistent
             sre.LoadGrammar(carAssistentGrammar);
             sre.RecognizeAsync(RecognizeMode.Multiple);
 
-            //ss.SpeakAsync("Cześć! Jestem asystentem samochodu Polonez. Powiedz \"Hej Polonez\", aby rozpocząć.");
+            ss.SpeakAsync("Cześć! Jestem asystentem samochodu Polonez. Powiedz \"Hej Polonez\", aby rozpocząć.");
         }
 
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
@@ -72,62 +73,82 @@ namespace SWPCarAssistent
             }
             else
             {
-                if (e.Result.Semantics["start"].Value.ToString() == "offEngine" || e.Result.Semantics["start"].Value.ToString() == "onEngine")
+                if(polonez == false && e.Result.Semantics["polonez"].Value.ToString() == "on")
                 {
-                    start = true;
-                    ss.SpeakAsync("Silnik został uruchomiony");
+                    polonez = true;
+                    ss.SpeakAsync("Co robimy?");
+                    return;
                 }
-                if (e.Result.Semantics["weather"].Value.ToString() != "null" && e.Result.Semantics["weather"].ToString() != null)
+                if (polonez == true)
                 {
-                    var city = e.Result.Semantics["weather"].Value.ToString();
-                    // var result = openWeatherApiHttpClient.GetQueryAsync(city);
-                    var task = Task.Run(async () => await openWeatherApiHttpClient.GetQueryAsync(city));
-                    var weatherRoot = task.Result;
 
-                    int tempCel = (int) (weatherRoot.WeatherRoot.main.temp - 273.15);
-                    int feelsTempCel = (int) (weatherRoot.WeatherRoot.main.feels_like - 273.15);
-
-                    ss.SpeakAsync("Pogoda w mieście " + city + " jest następująca");
-
-                    if(tempCel > 0)
-                        ss.SpeakAsync("Temperatura wynosi "+ tempCel + " stopni Celsjusza");
-                    else if(tempCel == 0)
-                        ss.SpeakAsync("Temperatura wynosi zero stopni Celsjusza");
-                    else
-                        ss.SpeakAsync("Temperatura wynosi minus "+ tempCel + " stopni Celsjusza");
-
-                    if (feelsTempCel >= 0)
-                        ss.SpeakAsync("Temperatura odczuwalna to " + feelsTempCel + " stopni Celsjusza");
-                    else if(feelsTempCel == 0)
-                        ss.SpeakAsync("Temperatura odczuwalna to zero stopni Celsjusza");
-                    else
-                        ss.SpeakAsync("Temperatura odczuwalna to minus " + feelsTempCel + " stopni Celsjusza");
-
-                    ss.SpeakAsync("Dodatkowo aktualny wiatr wieje z prędkością " + weatherRoot.WeatherRoot.wind.speed + " metrów na sekundę");
-                }
-                else
-                {
-                    if (start == false)
+                    if (e.Result.Semantics["start"].Value.ToString() == "offEngine" || e.Result.Semantics["start"].Value.ToString() == "onEngine")
                     {
-                        if (e.Result.Semantics["config"].Value.ToString() != null && e.Result.Semantics["config"].Value.ToString() != "null")
+                        if (e.Result.Semantics["start"].Value.ToString() == "offEngine" && start == true)
                         {
-                            Repozytorium(carRepository);
+                            start = false;
+                            ss.SpeakAsync("Silnik został wyłączony");
+                            return;
                         }
+                        if (e.Result.Semantics["start"].Value.ToString() == "onEngine" && start == false)
+                        {
+                            start = true;
+                            ss.SpeakAsync("Silnik został włączony");
+                            return;
+                        }
+                    }
+                    if (e.Result.Semantics["weather"].Value.ToString() != "null" && e.Result.Semantics["weather"].ToString() != null)
+                    {
+                        var city = e.Result.Semantics["weather"].Value.ToString();
+                        // var result = openWeatherApiHttpClient.GetQueryAsync(city);
+                        var task = Task.Run(async () => await openWeatherApiHttpClient.GetQueryAsync(city));
+                        var weatherRoot = task.Result;
+
+                        int tempCel = (int)(weatherRoot.WeatherRoot.main.temp - 273.15);
+                        int feelsTempCel = (int)(weatherRoot.WeatherRoot.main.feels_like - 273.15);
+
+                        ss.SpeakAsync("Pogoda w mieście " + city + " jest następująca");
+
+                        if (tempCel > 0)
+                            ss.SpeakAsync("Temperatura wynosi " + tempCel + " stopni Celsjusza");
+                        else if (tempCel == 0)
+                            ss.SpeakAsync("Temperatura wynosi zero stopni Celsjusza");
                         else
+                            ss.SpeakAsync("Temperatura wynosi minus " + tempCel + " stopni Celsjusza");
+
+                        if (feelsTempCel >= 0)
+                            ss.SpeakAsync("Temperatura odczuwalna to " + feelsTempCel + " stopni Celsjusza");
+                        else if (feelsTempCel == 0)
+                            ss.SpeakAsync("Temperatura odczuwalna to zero stopni Celsjusza");
+                        else
+                            ss.SpeakAsync("Temperatura odczuwalna to minus " + feelsTempCel + " stopni Celsjusza");
+
+                        ss.SpeakAsync("Dodatkowo aktualny wiatr wieje z prędkością " + weatherRoot.WeatherRoot.wind.speed + " metrów na sekundę");
+                    }
+                    else
+                    {
+                        if (start == false)
                         {
-                            Dopytywanie(e);
+                            if (e.Result.Semantics["config"].Value.ToString() != null && e.Result.Semantics["config"].Value.ToString() != "null")
+                            {
+                                Repozytorium(carRepository);
+                            }
+                            else
+                            {
+                                Dopytywanie(e);
+                            }
+                        }
+                        if (start == true)
+                        {
+                            Wlaczwylacz(e);
                         }
                     }
-                    if (start == true)
+                    textBlock1.Text = "";
+                    foreach (var helper in startupParamshelper.GetType().GetProperties())
                     {
-                        Wlaczwylacz(e);
+                        textBlock1.Text += helper.Name + " " + helper.GetValue(startupParamshelper).ToString() + "\n";
                     }
                 }
-            }
-            textBlock1.Text = "";
-            foreach (var helper in startupParamshelper.GetType().GetProperties())
-            {
-                textBlock1.Text += helper.Name + " " + helper.GetValue(startupParamshelper).ToString() + "\n";
             }
         }
 

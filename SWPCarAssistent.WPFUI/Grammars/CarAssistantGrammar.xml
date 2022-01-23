@@ -1,6 +1,8 @@
 ﻿<grammar version="1.0" xml:lang="pl-PL" root="rootRule" xmlns="http://www.w3.org/2001/06/grammar"
          tag-format="semantics/1.0">
 	<rule id="rootRule">
+		<ruleref uri="#polonez"></ruleref>
+		<tag>out.polonez=rules.latest();</tag>
 		<ruleref uri="#lights"></ruleref>
 		<tag>out.lights=rules.latest();</tag>
 		<ruleref uri="#wipers"></ruleref>
@@ -19,6 +21,16 @@
 		<tag>out.weather=rules.latest();</tag>
 		<ruleref uri="#start"></ruleref>
 		<tag>out.start=rules.latest();</tag>
+	</rule>
+	<rule id="polonez">
+		<one-of>
+			<item>
+				hej polonez <tag>out="on"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
 	</rule>
 	<rule id="lights">
 		<one-of>
@@ -114,7 +126,7 @@
 				odpal silnik <tag>out="onEngine"</tag>
 			</item>
 			<item>
-				wyłącz silnik<tag>out="offEngine"</tag>
+				zgaś silnik<tag>out="offEngine"</tag>
 			</item>
 			<item>
 				<tag>out="null"</tag>
