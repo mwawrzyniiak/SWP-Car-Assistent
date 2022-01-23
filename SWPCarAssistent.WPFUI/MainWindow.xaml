@@ -31,7 +31,16 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <ListBox x:Name="listBoxHelper" Margin="657,19,122,585" Background="Black" Foreground="RosyBrown"/>
-
+        <ListBox x:Name="listBoxHelper" Margin="657,14,122,589" Background="Black" Foreground="RosyBrown"/>
+        <Label x:Name="radioLbl" Foreground="White" Content="Stacja radiowa" HorizontalAlignment="Left" Margin="647,459,0,0" VerticalAlignment="Top" Width="113" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-3.695"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
     </Grid>
 </Window>
