@@ -1,16 +1,15 @@
 ﻿using Microsoft.Speech.Recognition;
 using Microsoft.Speech.Synthesis;
-using SWPCarAssistent.Infrastructure.Repositories;
-using System;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Media;
-using Microsoft.Win32;
-using System.IO;
 using SWPCarAssistent.Core.Common.Entities;
 using SWPCarAssistent.Infrastructure.Clients;
 using SWPCarAssistent.Infrastructure.Configurations;
+using SWPCarAssistent.Infrastructure.Repositories;
+using System;
+using System.Globalization;
+using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace SWPCarAssistent
 {
@@ -33,7 +32,7 @@ namespace SWPCarAssistent
         private bool start = false;
         private bool polonez = false;
         public static StartupParams startupParamshelper = new StartupParams();
-        
+
 
         public MainWindow()
         {
@@ -160,7 +159,7 @@ namespace SWPCarAssistent
                 }
             }
         }
-               
+
         private void WeatherDialogue(SpeechRecognizedEventArgs e)
         {
             var city = e.Result.Semantics["weather"].Value.ToString();
@@ -292,7 +291,7 @@ namespace SWPCarAssistent
                 else if (e.Result.Semantics["callTo"].Value.ToString() != "null" && e.Result.Semantics["callTo"].ToString() != null)
                 {
                     ss.SpeakAsync("Dzwonię do " + e.Result.Semantics["callTo"].Value.ToString());
-                    
+
                     sre.UnloadAllGrammars();
                     sre.SpeechRecognized -= Sre_SpeechRecognizedTelephoneNumbers;
                     sre.SpeechRecognized += Sre_SpeechRecognized;

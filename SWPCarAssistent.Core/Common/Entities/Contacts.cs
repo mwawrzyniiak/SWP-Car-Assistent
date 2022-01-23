@@ -14,12 +14,17 @@ namespace SWPCarAssistent.Core.Common.Entities
 
         public bool? Favourite { get; set; }
 
+        public Contacts()
+        {
+        }
+
         public Contacts(string fullName, string phoneNumber, bool? favourite)
         {
             FullName = fullName;
             PhoneNumber = phoneNumber;
             Favourite = favourite;
         }
+
     }
 }
 
