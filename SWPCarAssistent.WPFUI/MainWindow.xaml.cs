@@ -88,7 +88,6 @@ namespace SWPCarAssistent
                 }
                 if (polonez == true)
                 {
-
                     if (e.Result.Semantics["start"].Value.ToString() == "offEngine" || e.Result.Semantics["start"].Value.ToString() == "onEngine")
                     {
                         if (e.Result.Semantics["start"].Value.ToString() == "offEngine" && start == true)
@@ -104,9 +103,18 @@ namespace SWPCarAssistent
                             return;
                         }
                     }
+
                     if (e.Result.Semantics["weather"].Value.ToString() != "null" && e.Result.Semantics["weather"].ToString() != null)
                     {
                         WeatherDialogue(e);
+                    }
+                    else if (e.Result.Semantics["telephoneContacts"].Value.ToString() != "null" && e.Result.Semantics["telephoneContacts"].ToString() != null)
+                    {
+                        sre.UnloadAllGrammars();
+                        sre.SpeechRecognized -= Sre_SpeechRecognized;
+                        sre.SpeechRecognized += Sre_SpeechRecognizedTelephoneNumbers;
+                        sre.LoadGrammar(phoneInteractionGrammar);
+                        ss.SpeakAsync("Co chcesz zrobić z listą kontaktów? Wyświetlić czy do kogoś zadzwonić?");
                     }
                     else
                     {
@@ -249,7 +257,6 @@ namespace SWPCarAssistent
             }
         }
 
-       
         private void Sre_SpeechRecognizedTelephoneNumbers(object sender, SpeechRecognizedEventArgs e)
         {
             float confidence = e.Result.Confidence;
