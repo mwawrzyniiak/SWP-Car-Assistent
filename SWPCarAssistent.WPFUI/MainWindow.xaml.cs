@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Media;
 using Microsoft.Win32;
 using System.IO;
+using SWPCarAssistent.Core.Common.Entities;
 
 namespace SWPCarAssistent
 {
@@ -52,6 +53,7 @@ namespace SWPCarAssistent
         {
             CarRepository carRepository = new CarRepository();
             float confidence = e.Result.Confidence;
+            StartupParams startupParamshelper = new StartupParams();
 
             if (confidence <= 0.6)
             {
@@ -66,29 +68,61 @@ namespace SWPCarAssistent
                 }
                 else
                 {
-                    if (e.Result.Semantics["lights"].Value.ToString() == "null")
+                    string lights = e.Result.Semantics["lights"].Value.ToString();
+                    if (lights == "null")
                     {
                         ss.SpeakAsync("Czy włączyć światła?");
+                    }
+                    else
+                    {
+                        if (lights == "onLights")
+                            startupParamshelper.Lights = true;
+                        else
+                            startupParamshelper.Lights = false;
                     }
                     if (e.Result.Semantics["wipers"].Value.ToString() == "null")
                     {
                         ss.SpeakAsync("Czy włączyć wycieraczki?");
                     }
+
+                    else
+                    {
+                        if (e.Result.Semantics["wipers"].Value.ToString() == "onWipers")
+                            startupParamshelper.Wipers = true;
+                        else
+                            startupParamshelper.Wipers = false;
+                    }
                     if (e.Result.Semantics["carWindows"].Value.ToString() == "null")
                     {
                         ss.SpeakAsync("Czy uchylić szyby?");
+                    }
+                    else
+                    {
+
                     }
                     if (e.Result.Semantics["radio"].Value.ToString() == "null")
                     {
                         ss.SpeakAsync("Czy włączyć radio?");
                     }
+                    else
+                    {
+
+                    }
                     if (e.Result.Semantics["airConditioning"].Value.ToString() == "null")
                     {
                         ss.SpeakAsync("Czy włączyć nawiew?");
                     }
+                    else
+                    {
+
+                    }
                     if (e.Result.Semantics["heating"].Value.ToString() == "null")
                     {
                         ss.SpeakAsync("Czy włączyć ogrzewanie?");
+                    }
+                    else
+                    {
+
                     }
                 }
             }
