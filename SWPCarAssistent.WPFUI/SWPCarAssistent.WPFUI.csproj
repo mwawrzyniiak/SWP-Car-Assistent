@@ -150,9 +150,12 @@
     <Content Include="Grammars\RadioGrammar.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Voice\Radio4.mp3" />
+    <Content Include="Voice\Radio3.mp3" />
+    <Content Include="Voice\Radio6.mp3" />
+    <Content Include="Voice\Radio5.mp3" />
     <Resource Include="Images\Polonez_1500_wnetzre.jpg" />
-    <Content Include="Voice\Rafonix we nie kozacz.mp3" />
-    <Content Include="Voice\rafonix2.mp3" />
+    <Content Include="Voice\Radio2.mp3" />
     <Content Include="Voice\Radio1.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

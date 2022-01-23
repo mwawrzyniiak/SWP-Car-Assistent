@@ -29,10 +29,13 @@
 				Włącz Eskę <tag>out="Eska"</tag>
 			</item>
 			<item>
-				Włącz VoxFm<tag>out="VoxFm"</tag>
+				Włącz Vox Fm<tag>out="VoxFm"</tag>
 			</item>
 			<item>
 				Włącz Polskie Radio<tag>out="PolskieRadio"</tag>
+			</item>
+			<item>
+				Włącz RmfFm<tag>out="RmfFm"</tag>
 			</item>
 			<item>
 				<tag>out="null"</tag>
