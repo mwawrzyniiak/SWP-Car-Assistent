@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace SWPCarAssistent
@@ -386,13 +387,24 @@ namespace SWPCarAssistent
             {
                 if (e.Result.Semantics["Radios"].Value.ToString() == "Radios")
                 {
-                    var contacts = carRepository.GetAllRadios();
+                    List<string> itemSource = new List<string>();
+                    var radios = carRepository.GetAllRadios();
+                    listBoxHelper.Visibility = Visibility.Visible;
+
+                    foreach (var radio in radios)
+                        itemSource.Add(radio.RadioName + " " + radio.Frequency);
+
+                    listBoxHelper.ItemsSource = itemSource;
+
                     ss.SpeakAsync("Wyświetlam listę stacji radiowych");
                 }
                 else if (e.Result.Semantics["station"].Value.ToString() != "null" && e.Result.Semantics["station"].ToString() != null)
                 {
-                    if(e.Result.Semantics["station"].Value.ToString() == "Eska")
+                    listBoxHelper.Visibility = Visibility.Collapsed;
+
+                    if (e.Result.Semantics["station"].Value.ToString() == "Eska")
                     {
+                        radioLbl.Content = "Radio Eska";
                         string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio2.mp3");
                         Uri uri = new Uri(path);
                         mediaPlayer.Volume = 0.05;
@@ -401,6 +413,8 @@ namespace SWPCarAssistent
                     }
                     if (e.Result.Semantics["station"].Value.ToString() == "RadioZet")
                     {
+                        radioLbl.Content = "Radio Zet";
+
                         string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio1.mp3");
                         Uri uri = new Uri(path);
                         mediaPlayer.Volume = 0.05;
@@ -409,6 +423,8 @@ namespace SWPCarAssistent
                     }
                     if (e.Result.Semantics["station"].Value.ToString() == "RadioMaryja")
                     {
+                        radioLbl.Content = "Radio Maryja";
+
                         string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio4.mp3");
                         Uri uri = new Uri(path);
                         mediaPlayer.Volume = 0.05;
@@ -417,6 +433,8 @@ namespace SWPCarAssistent
                     }
                     if (e.Result.Semantics["station"].Value.ToString() == "VoxFm")
                     {
+                        radioLbl.Content = "Radio VoxFm";
+
                         string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio3.mp3");
                         Uri uri = new Uri(path);
                         mediaPlayer.Volume = 0.05;
@@ -425,6 +443,8 @@ namespace SWPCarAssistent
                     }
                     if (e.Result.Semantics["station"].Value.ToString() == "PolskieRadio")
                     {
+                        radioLbl.Content = "Polskie Radio";
+
                         string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio5.mp3");
                         Uri uri = new Uri(path);
                         mediaPlayer.Volume = 0.05;
@@ -433,6 +453,8 @@ namespace SWPCarAssistent
                     }
                     if (e.Result.Semantics["station"].Value.ToString() == "RmfFm")
                     {
+                        radioLbl.Content = "Polskie RmfFm";
+
                         string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio6.mp3");
                         Uri uri = new Uri(path);
                         mediaPlayer.Volume = 0.05;
@@ -536,6 +558,8 @@ namespace SWPCarAssistent
                 if (radio == "offRadio")
                 {
                     ss.SpeakAsync("Wyłączono radio");
+                    radioLbl.Content = "Radio wyłączone";
+
                     mediaPlayer.Stop();
                     startupParamshelper.Radio = false;
                 }
@@ -695,6 +719,7 @@ namespace SWPCarAssistent
                 {
                     if (radio == "offRadio")
                     {
+                        radioLbl.Content = "Radio wyłączone";
                         mediaPlayer.Stop();
                         startupParamshelper.Radio = false;
                     }
