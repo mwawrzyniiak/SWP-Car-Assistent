@@ -10,7 +10,28 @@
         <ImageBrush ImageSource="/Images/Polonez_1500_wnetzre.jpg" Stretch="Fill" />
     </Window.Background>
     <Grid>
-        <TextBlock Name="textBlock1" HorizontalAlignment="Left" Margin="664,19,0,0" TextWrapping="Wrap" Text="Cześć! Jestem asystentem samochodu Polonez. Powiedz Hej Polonez, aby rozpocząć." VerticalAlignment="Top" Foreground="RosyBrown" FontStyle="Oblique" Height="128" Width="407" FontSize="13"/>
+        <TextBlock Name="textBlock1" HorizontalAlignment="Left" Margin="664,19,0,0" TextWrapping="Wrap" Text="Cześć! Jestem asystentem samochodu Polonez. Powiedz Hej Polonez, aby rozpocząć." VerticalAlignment="Top" Foreground="RosyBrown" Height="271" Width="407" FontSize="20"/>
+        <Label x:Name="tempLbl" Content="temperatura" HorizontalAlignment="Left" Foreground="GreenYellow" Margin="677,550,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="110">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-4.449"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="cityLbl" Content="Miasto" Foreground="GreenYellow" HorizontalAlignment="Left" Margin="673,525,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="111">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-3.268"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <ListBox x:Name="listBoxHelper" Margin="657,19,122,585" Background="Black" Foreground="RosyBrown"/>
 
     </Grid>
 </Window>

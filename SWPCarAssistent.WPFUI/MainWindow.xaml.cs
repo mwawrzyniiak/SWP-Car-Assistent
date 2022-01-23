@@ -5,6 +5,7 @@ using SWPCarAssistent.Infrastructure.Clients;
 using SWPCarAssistent.Infrastructure.Configurations;
 using SWPCarAssistent.Infrastructure.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
@@ -37,16 +38,19 @@ namespace SWPCarAssistent
         public MainWindow()
         {
             InitializeComponent();
-
+            
+            ResizeMode = ResizeMode.NoResize;
+            
             simpleAppConfigurations = new SimpleAppConfigurations();
             openWeatherApiHttpClient = new OpenWeatherApiHttpClient(simpleAppConfigurations.API_KEY);
             carRepository = new CarRepository();
 
-           //string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
-           //Uri uri = new Uri(path);
-           // mediaPlayer.Volume = 0.05;
-           // mediaPlayer.Open(uri);
-          // mediaPlayer.Play();
+            //string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
+            //Uri uri = new Uri(path);
+            // mediaPlayer.Volume = 0.05;
+            // mediaPlayer.Open(uri);
+            // mediaPlayer.Play();
+            listBoxHelper.Visibility = Visibility.Collapsed;
             ConfigureSpeecher();
         }
 
@@ -78,6 +82,8 @@ namespace SWPCarAssistent
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             float confidence = e.Result.Confidence;
+            listBoxHelper.Visibility = Visibility.Collapsed;
+
             if (confidence <= 0.6)
             {
                 ss.SpeakAsync("Nie rozumiem, możesz powtórzyć?");
@@ -152,9 +158,68 @@ namespace SWPCarAssistent
                         }
                     }
                     textBlock1.Text = "";
+                    
                     foreach (var helper in startupParamshelper.GetType().GetProperties())
                     {
-                        textBlock1.Text += helper.Name + " " + helper.GetValue(startupParamshelper).ToString() + "\n";
+                        string textValue = "";
+                        bool propertyValue = false;
+                        try
+                        {
+                            propertyValue = (bool) (helper.GetValue(startupParamshelper));
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("TODO: wytrych");
+                        }
+
+                        switch (helper.Name)
+                        {
+                            case "Lights":
+                                textValue = "Światło: ";
+                                if (propertyValue)
+                                    textValue += "Włączone";
+                                else
+                                    textValue += "Wyłączone";
+                                break;
+                            case "Wipers":
+                                textValue = "Wycieraczki: ";
+                                if (propertyValue)
+                                    textValue += "Włączone";
+                                else
+                                    textValue += "Wyłączone";
+                                break;
+                            case "CarWindows":
+                                textValue = "Okna: ";
+                                if (propertyValue)
+                                    textValue += "Otwarte";
+                                else
+                                    textValue += "Zamknięte";
+                                break;
+                            case "Radio":
+                                textValue = "Radio: ";
+                                if (propertyValue)
+                                    textValue += "Włączone";
+                                else
+                                    textValue += "Wyłączone";
+                                break;
+                            case "AirConditioning":
+                                textValue = "Nawiew: ";
+                                if (propertyValue)
+                                    textValue += "Włączone";
+                                else
+                                    textValue += "Wyłączone";
+                                break;
+                            case "Heating":
+                                textValue = "Ogrzewanie: ";
+                                if (propertyValue)
+                                    textValue += "Włączone";
+                                else
+                                    textValue += "Wyłączone";
+                                break;
+                            default:
+                                break;
+                        }
+                        textBlock1.Text += textValue  + "\n";
                     }
                 }
             }
@@ -169,6 +234,9 @@ namespace SWPCarAssistent
 
             int tempCel = (int)(weatherRoot.WeatherRoot.main.temp - 273.15);
             int feelsTempCel = (int)(weatherRoot.WeatherRoot.main.feels_like - 273.15);
+
+            this.tempLbl.Content = tempCel + " °C";
+            this.cityLbl.Content = city;
 
             ss.SpeakAsync("Pogoda w mieście " + city + " jest następująca");
 
@@ -285,7 +353,14 @@ namespace SWPCarAssistent
             {
                 if (e.Result.Semantics["showNumbers"].Value.ToString() == "showNumbers")
                 {
+                    List<string> itemSource = new List<string>();
                     var contacts = carRepository.GetAllContacts();
+                    listBoxHelper.Visibility = Visibility.Visible;
+
+                    foreach (var contact in contacts)
+                        itemSource.Add(contact.FullName + " " + contact.PhoneNumber);
+
+                    listBoxHelper.ItemsSource = itemSource;
                     ss.SpeakAsync("Wyświetlam listę dostępnych kontaktów");
                 }
                 else if (e.Result.Semantics["callTo"].Value.ToString() != "null" && e.Result.Semantics["callTo"].ToString() != null)
@@ -296,6 +371,7 @@ namespace SWPCarAssistent
                     sre.SpeechRecognized -= Sre_SpeechRecognizedTelephoneNumbers;
                     sre.SpeechRecognized += Sre_SpeechRecognized;
                     sre.LoadGrammar(carAssistentGrammar);
+                    listBoxHelper.Visibility = Visibility.Collapsed;
                 }
             }
         }
