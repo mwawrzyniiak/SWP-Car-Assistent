@@ -315,11 +315,54 @@ namespace SWPCarAssistent
                 }
                 else if (e.Result.Semantics["station"].Value.ToString() != "null" && e.Result.Semantics["station"].ToString() != null)
                 {
-                    string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio1.mp3");
-                    Uri uri = new Uri(path);
-                    mediaPlayer.Volume = 0.05;
-                    mediaPlayer.Open(uri);
-                    mediaPlayer.Play();
+                    if(e.Result.Semantics["station"].Value.ToString() == "Eska")
+                    {
+                        string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio2.mp3");
+                        Uri uri = new Uri(path);
+                        mediaPlayer.Volume = 0.05;
+                        mediaPlayer.Open(uri);
+                        mediaPlayer.Play();
+                    }
+                    if (e.Result.Semantics["station"].Value.ToString() == "RadioZet")
+                    {
+                        string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio1.mp3");
+                        Uri uri = new Uri(path);
+                        mediaPlayer.Volume = 0.05;
+                        mediaPlayer.Open(uri);
+                        mediaPlayer.Play();
+                    }
+                    if (e.Result.Semantics["station"].Value.ToString() == "RadioMaryja")
+                    {
+                        string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio4.mp3");
+                        Uri uri = new Uri(path);
+                        mediaPlayer.Volume = 0.05;
+                        mediaPlayer.Open(uri);
+                        mediaPlayer.Play();
+                    }
+                    if (e.Result.Semantics["station"].Value.ToString() == "VoxFm")
+                    {
+                        string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio3.mp3");
+                        Uri uri = new Uri(path);
+                        mediaPlayer.Volume = 0.05;
+                        mediaPlayer.Open(uri);
+                        mediaPlayer.Play();
+                    }
+                    if (e.Result.Semantics["station"].Value.ToString() == "PolskieRadio")
+                    {
+                        string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio5.mp3");
+                        Uri uri = new Uri(path);
+                        mediaPlayer.Volume = 0.05;
+                        mediaPlayer.Open(uri);
+                        mediaPlayer.Play();
+                    }
+                    if (e.Result.Semantics["station"].Value.ToString() == "RmfFm")
+                    {
+                        string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "Radio6.mp3");
+                        Uri uri = new Uri(path);
+                        mediaPlayer.Volume = 0.05;
+                        mediaPlayer.Open(uri);
+                        mediaPlayer.Play();
+                    }
 
                     ss.SpeakAsync("Aktualnie leci:  " + e.Result.Semantics["station"].Value.ToString());
                     sre.UnloadAllGrammars();
@@ -330,7 +373,7 @@ namespace SWPCarAssistent
             }
         }
 
-        private static void Wlaczwylacz(SpeechRecognizedEventArgs e)
+        private void Wlaczwylacz(SpeechRecognizedEventArgs e)
         {
             string lights = e.Result.Semantics["lights"].Value.ToString();
             if (lights == "onLights")
@@ -417,6 +460,7 @@ namespace SWPCarAssistent
                 if (radio == "offRadio")
                 {
                     ss.SpeakAsync("Wyłączono radio");
+                    mediaPlayer.Stop();
                     startupParamshelper.Radio = false;
                 }
             }
