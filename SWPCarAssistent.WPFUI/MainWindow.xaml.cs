@@ -23,7 +23,7 @@ namespace SWPCarAssistent
         public MainWindow()
         {
             InitializeComponent();
-            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix2.mp3");
+            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
             Uri uri = new Uri(path);
             mediaPlayer.Open(uri);
             mediaPlayer.Play();
@@ -52,8 +52,6 @@ namespace SWPCarAssistent
         {
             CarRepository carRepository = new CarRepository();
             float confidence = e.Result.Confidence;
-            mediaPlayer.Open(new Uri("pack://application:,,,/Voice/rafonix2.mp3"));
-            mediaPlayer.Play();
 
             if (confidence <= 0.6)
             {
@@ -62,43 +60,69 @@ namespace SWPCarAssistent
             }
             else
             {
-                string lights = e.Result.Semantics["lights"].Value.ToString();
-                string wipers = e.Result.Semantics["wipers"].Value.ToString();
-                string carWindows = e.Result.Semantics["carWindows"].Value.ToString();
-                string radio = e.Result.Semantics["radio"].Value.ToString();
-
-
-                if(e.Result.Semantics["config"].Value.ToString() != null)
+                if (e.Result.Semantics["config"].Value.ToString() != null && e.Result.Semantics["config"].Value.ToString() != "null")
                 {
-                    var startupParams = carRepository.GetStartupParams();
-                    if (startupParams != null)
+                    GetStartupParamsFromRepository(carRepository);
+                }
+                else
+                {
+                    if (e.Result.Semantics["lights"].Value.ToString() == "null")
                     {
-                        ss.SpeakAsync("Chcesz jechać jak zawsze, w związku z tym:");
-                        if(startupParams.CarWindows == true)
-                        {
-                            ss.SpeakAsync("Włączono szyby");
-                        }
-                        if (startupParams.AirConditioning == true)
-                        {
-                            ss.SpeakAsync("Włączono klimatyzację");
-                        }
-                        if (startupParams.Heating == true)
-                        {
-                            ss.SpeakAsync("Włączono ogrzewanie");
-                        }
-                        if (startupParams.Radio == true)
-                        {
-                            ss.SpeakAsync("Włączono Radio");
-                        }
-                        if (startupParams.Wipers == true)
-                        {
-                            ss.SpeakAsync("Włączono Wycieraczki");
-                        }
-                        if (startupParams.Lights == true)
-                        {
-                            ss.SpeakAsync("Włączono światła");
-                        }
+                        ss.SpeakAsync("Czy włączyć światła?");
                     }
+                    if (e.Result.Semantics["wipers"].Value.ToString() == "null")
+                    {
+                        ss.SpeakAsync("Czy włączyć wycieraczki?");
+                    }
+                    if (e.Result.Semantics["carWindows"].Value.ToString() == "null")
+                    {
+                        ss.SpeakAsync("Czy uchylić szyby?");
+                    }
+                    if (e.Result.Semantics["radio"].Value.ToString() == "null")
+                    {
+                        ss.SpeakAsync("Czy włączyć radio?");
+                    }
+                    if (e.Result.Semantics["airConditioning"].Value.ToString() == "null")
+                    {
+                        ss.SpeakAsync("Czy włączyć nawiew?");
+                    }
+                    if (e.Result.Semantics["heating"].Value.ToString() == "null")
+                    {
+                        ss.SpeakAsync("Czy włączyć ogrzewanie?");
+                    }
+                }
+            }
+        }
+
+        private static void GetStartupParamsFromRepository(CarRepository carRepository)
+        {
+            var startupParams = carRepository.GetStartupParams();
+            if (startupParams != null)
+            {
+                ss.SpeakAsync("Chcesz jechać jak zawsze, w związku z tym:");
+                if (startupParams.CarWindows == true)
+                {
+                    ss.SpeakAsync("Włączono szyby");
+                }
+                if (startupParams.AirConditioning == true)
+                {
+                    ss.SpeakAsync("Włączono klimatyzację");
+                }
+                if (startupParams.Heating == true)
+                {
+                    ss.SpeakAsync("Włączono ogrzewanie");
+                }
+                if (startupParams.Radio == true)
+                {
+                    ss.SpeakAsync("Włączono Radio");
+                }
+                if (startupParams.Wipers == true)
+                {
+                    ss.SpeakAsync("Włączono Wycieraczki");
+                }
+                if (startupParams.Lights == true)
+                {
+                    ss.SpeakAsync("Włączono światła");
                 }
             }
         }
