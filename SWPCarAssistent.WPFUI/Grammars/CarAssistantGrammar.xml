@@ -84,9 +84,6 @@
 				wyłącz radio<tag>out="offRadio"</tag>
 			</item>
 			<item>
-				wyłącz muzykę<tag>out="offRadio"</tag>
-			</item>
-			<item>
 				<tag>out="null"</tag>
 			</item>
 		</one-of>
@@ -133,13 +130,7 @@
 				odpal silnik <tag>out="onEngine"</tag>
 			</item>
 			<item>
-				włącz silnik <tag>out="onEngine"</tag>
-			</item>
-			<item>
 				zgaś silnik<tag>out="offEngine"</tag>
-			</item>
-			<item>
-				wyłącz silnik<tag>out="offEngine"</tag>
 			</item>
 			<item>
 				<tag>out="null"</tag>
@@ -189,7 +180,7 @@
 			</item>
 			<item>
 				Jaka jest pogoda we Wrocławiu<tag>out="Wroclaw"</tag>
-			</item>			
+			</item>
 			<item>
 				<tag>out="null"</tag>
 			</item>
@@ -211,7 +202,7 @@
 			</item>
 		</one-of>
 	</rule>
-		<rule id="turnOnRadio">
+	<rule id="turnOnRadio">
 		<one-of>
 			<item>
 				Puść muzykę <tag>out="turnOnRadio"</tag>
@@ -223,11 +214,8 @@
 				Puść radio <tag>out="turnOnRadio"</tag>
 			</item>
 			<item>
-				Włącz muzykę <tag>out="turnOnRadio"</tag>
-			</item>
-			<item>
 				<tag>out="null"</tag>
 			</item>
 		</one-of>
-		</rule>
+	</rule>
 </grammar>
