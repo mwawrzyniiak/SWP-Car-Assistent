@@ -25,10 +25,10 @@ namespace SWPCarAssistent
         public MainWindow()
         {
             InitializeComponent();
-           // string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
-           // Uri uri = new Uri(path);
-          //  mediaPlayer.Open(uri);
-          //  mediaPlayer.Play();
+            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
+            Uri uri = new Uri(path);
+            mediaPlayer.Open(uri);
+            mediaPlayer.Play();
             ConfigureSpeecher();
         }
 
