@@ -1,19 +1,16 @@
 ﻿<grammar version="1.0" xml:lang="pl-PL" root="rootRule" xmlns="http://www.w3.org/2001/06/grammar"
          tag-format="semantics/1.0">
 	<rule id="rootRule">
-		<ruleref uri="#favouriteRadio"></ruleref>
-		<tag>out.favouriteRadio=rules.latest();</tag>
+		<ruleref uri="#Radios"></ruleref>
+		<tag>out.Radios=rules.latest();</tag>
 		<ruleref uri="#station"></ruleref>
 		<tag>out.station=rules.latest();</tag>
 	</rule>
 
-	<rule id="favouriteRadio">
+	<rule id="Radios">
 		<one-of>
 			<item>
-				Wyświetl numery <tag>out="showNumbers"</tag>
-			</item>
-			<item>
-				Pokaż numery <tag>out="showNumbers"</tag>
+				Wyświetl radia <tag>out="Radios"</tag>
 			</item>
 			<item>
 				<tag>out="null"</tag>

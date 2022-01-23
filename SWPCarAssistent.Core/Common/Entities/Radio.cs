@@ -6,6 +6,7 @@ namespace SWPCarAssistent.Core.Common.Entities
     [Table("Radio")]
     public class Radio
     {
+        public Radio() { }
         public int Id { get; set; }
 
         [Required]

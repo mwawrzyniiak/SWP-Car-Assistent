@@ -25,6 +25,13 @@ namespace SWPCarAssistent.Infrastructure.Repositories
                 return context.Radio?.Where(b => b.RadioName.Contains(radioName)).FirstOrDefault();
             }
         }
+        public List<Radio> GetAllRadios()
+        {
+            using (var context = new CarContext())
+            {
+                return context.Radio.ToList();
+            }
+        }
 
         public void AddNewContact(Contacts Contacts)
         {
