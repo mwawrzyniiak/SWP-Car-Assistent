@@ -17,6 +17,8 @@
 		<tag>out.config=rules.latest();</tag>
 		<ruleref uri="#weather"></ruleref>
 		<tag>out.weather=rules.latest();</tag>
+		<ruleref uri="#start"></ruleref>
+		<tag>out.start=rules.latest();</tag>
 	</rule>
 	<rule id="lights">
 		<one-of>
@@ -100,6 +102,19 @@
 		<one-of>
 			<item>
 				Załaduj domyślne ustawienia <tag>out="getConfig"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+	</rule>
+	<rule id="start">
+		<one-of>
+			<item>
+				odpal silnik <tag>out="onEngine"</tag>
+			</item>
+			<item>
+				wyłącz silnik<tag>out="offEngine"</tag>
 			</item>
 			<item>
 				<tag>out="null"</tag>
