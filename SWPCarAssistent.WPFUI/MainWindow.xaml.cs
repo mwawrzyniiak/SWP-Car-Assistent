@@ -23,6 +23,7 @@ namespace SWPCarAssistent
 
         private Grammar carAssistentGrammar;
         private Grammar phoneInteractionGrammar;
+        private Grammar radioGrammar;
         private MediaPlayer mediaPlayer = new MediaPlayer();
         private CarRepository carRepository;
 
@@ -39,10 +40,10 @@ namespace SWPCarAssistent
             openWeatherApiHttpClient = new OpenWeatherApiHttpClient(simpleAppConfigurations.API_KEY);
             carRepository = new CarRepository();
 
-            //string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
-            //Uri uri = new Uri(path);
-            // mediaPlayer.Open(uri);
-            //mediaPlayer.Play();
+            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
+            Uri uri = new Uri(path);
+            mediaPlayer.Open(uri);
+            mediaPlayer.Play();
             ConfigureSpeecher();
         }
 
@@ -61,6 +62,9 @@ namespace SWPCarAssistent
 
             phoneInteractionGrammar = new Grammar("Grammars\\PhoneInteractionGrammar.xml");
             phoneInteractionGrammar.Enabled = true;
+
+            radioGrammar = new Grammar("Grammars\\RadioGrammar.xml");
+            radioGrammar.Enabled = true;
 
             sre.LoadGrammar(carAssistentGrammar);
             sre.RecognizeAsync(RecognizeMode.Multiple);
@@ -112,6 +116,19 @@ namespace SWPCarAssistent
                         sre.SpeechRecognized += Sre_SpeechRecognizedTelephoneNumbers;
                         sre.LoadGrammar(phoneInteractionGrammar);
                         ss.SpeakAsync("Co chcesz zrobić z listą kontaktów? Wyświetlić czy do kogoś zadzwonić?");
+                    }
+                    else if (e.Result.Semantics["turnOnRadio"].Value.ToString() != "null" && e.Result.Semantics["turnOnRadio"].ToString() != null)
+                    {
+                        if (startupParamshelper.Radio == false)
+                        {
+                            startupParamshelper.Radio = true;
+                            ss.SpeakAsync("Włączam radio");
+                        }
+                        sre.UnloadAllGrammars();
+                        sre.SpeechRecognized -= Sre_SpeechRecognized;
+                        sre.SpeechRecognized += Sre_SpeechRecognizedRadio;
+                        sre.LoadGrammar(radioGrammar);
+                        ss.SpeakAsync("Chcesz wyświetlić listę stacji czy puścić wybraną?");
                     }
                     else
                     {
@@ -274,6 +291,31 @@ namespace SWPCarAssistent
 
                     sre.UnloadAllGrammars();
                     sre.SpeechRecognized -= Sre_SpeechRecognizedTelephoneNumbers;
+                    sre.SpeechRecognized += Sre_SpeechRecognized;
+                    sre.LoadGrammar(carAssistentGrammar);
+                }
+            }
+        }
+        private void Sre_SpeechRecognizedRadio(object sender, SpeechRecognizedEventArgs e)
+        {
+            float confidence = e.Result.Confidence;
+            if (confidence <= 0.6)
+            {
+                ss.SpeakAsync("Nie rozumiem, możesz powtórzyć?");
+            }
+            else
+            {
+                if (e.Result.Semantics["Radios"].Value.ToString() == "Radios")
+                {
+                    var contacts = carRepository.GetAllRadios();
+                    ss.SpeakAsync("Wyświetlam listę stacji radiowych");
+                }
+                else if (e.Result.Semantics["station"].Value.ToString() != "null" && e.Result.Semantics["station"].ToString() != null)
+                {
+                    ss.SpeakAsync("Aktualnie leci:  " + e.Result.Semantics["station"].Value.ToString());
+
+                    sre.UnloadAllGrammars();
+                    sre.SpeechRecognized -= Sre_SpeechRecognizedRadio;
                     sre.SpeechRecognized += Sre_SpeechRecognized;
                     sre.LoadGrammar(carAssistentGrammar);
                 }

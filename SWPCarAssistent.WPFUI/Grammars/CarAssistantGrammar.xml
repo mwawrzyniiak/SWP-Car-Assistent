@@ -23,6 +23,8 @@
 		<tag>out.start=rules.latest();</tag>
 		<ruleref uri="#telephoneContacts"></ruleref>
 		<tag>out.telephoneContacts=rules.latest();</tag>
+		<ruleref uri="#turnOnRadio"></ruleref>
+		<tag>out.turnOnRadio=rules.latest();</tag>
 	</rule>
 	<rule id="polonez">
 		<one-of>
@@ -200,4 +202,20 @@
 			</item>
 		</one-of>
 	</rule>
+		<rule id="turnOnRadio">
+		<one-of>
+			<item>
+				Puść muzykę <tag>out="turnOnRadio"</tag>
+			</item>
+			<item>
+				Włącz stację <tag>out="turnOnRadio"</tag>
+			</item>
+			<item>
+				Puść radio <tag>out="turnOnRadio"</tag>
+			</item>
+			<item>
+				<tag>out="null"</tag>
+			</item>
+		</one-of>
+		</rule>
 </grammar>
