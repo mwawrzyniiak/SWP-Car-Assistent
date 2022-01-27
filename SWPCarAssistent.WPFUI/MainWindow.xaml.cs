@@ -10,7 +10,6 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Media;
 
 namespace SWPCarAssistent
@@ -39,18 +38,13 @@ namespace SWPCarAssistent
         public MainWindow()
         {
             InitializeComponent();
-            
+
             ResizeMode = ResizeMode.NoResize;
-            
+
             simpleAppConfigurations = new SimpleAppConfigurations();
             openWeatherApiHttpClient = new OpenWeatherApiHttpClient(simpleAppConfigurations.API_KEY);
             carRepository = new CarRepository();
 
-            //string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, @"Voice\", "rafonix we nie kozacz.mp3");
-            //Uri uri = new Uri(path);
-            // mediaPlayer.Volume = 0.05;
-            // mediaPlayer.Open(uri);
-            // mediaPlayer.Play();
             listBoxHelper.Visibility = Visibility.Collapsed;
             ConfigureSpeecher();
         }
@@ -159,14 +153,14 @@ namespace SWPCarAssistent
                         }
                     }
                     textBlock1.Text = "";
-                    
+
                     foreach (var helper in startupParamshelper.GetType().GetProperties())
                     {
                         string textValue = "";
                         bool propertyValue = false;
                         try
                         {
-                            propertyValue = (bool) (helper.GetValue(startupParamshelper));
+                            propertyValue = (bool)(helper.GetValue(startupParamshelper));
                         }
                         catch (Exception)
                         {
@@ -220,7 +214,7 @@ namespace SWPCarAssistent
                             default:
                                 break;
                         }
-                        textBlock1.Text += textValue  + "\n";
+                        textBlock1.Text += textValue + "\n";
                     }
                 }
             }
@@ -229,7 +223,6 @@ namespace SWPCarAssistent
         private void WeatherDialogue(SpeechRecognizedEventArgs e)
         {
             var city = e.Result.Semantics["weather"].Value.ToString();
-            // var result = openWeatherApiHttpClient.GetQueryAsync(city);
             var task = Task.Run(async () => await openWeatherApiHttpClient.GetQueryAsync(city));
             var weatherRoot = task.Result;
 
@@ -239,23 +232,47 @@ namespace SWPCarAssistent
             this.tempLbl.Content = tempCel + " °C";
             this.cityLbl.Content = city;
 
+            string endOfTempCel = " stopni Celsjusza";
+            string endOfFeelsTempCel = " stopni Celsjusza";
+            
+            if(Math.Abs(tempCel) == 1)
+                endOfTempCel = " stopień Celsjusza";
+            else if(Math.Abs(tempCel) >= 2 && Math.Abs(tempCel) < 5)
+                endOfTempCel = " stopnie Celsjusza";
+
+            if (Math.Abs(feelsTempCel) == 1)
+                endOfFeelsTempCel = " stopień Celsjusza";
+            else if (Math.Abs(feelsTempCel) >= 2 && Math.Abs(feelsTempCel) < 5)
+                endOfFeelsTempCel = " stopnie Celsjusza";
+
+
             ss.SpeakAsync("Pogoda w mieście " + city + " jest następująca");
 
             if (tempCel > 0)
-                ss.SpeakAsync("Temperatura wynosi " + tempCel + " stopni Celsjusza");
+                ss.SpeakAsync("Temperatura wynosi " + tempCel.ToString() + endOfTempCel);
             else if (tempCel == 0)
                 ss.SpeakAsync("Temperatura wynosi zero stopni Celsjusza");
             else
-                ss.SpeakAsync("Temperatura wynosi minus " + tempCel + " stopni Celsjusza");
+                ss.SpeakAsync("Temperatura wynosi minus " + tempCel.ToString() + endOfTempCel);
 
-            if (feelsTempCel >= 0)
-                ss.SpeakAsync("Temperatura odczuwalna to " + feelsTempCel + " stopni Celsjusza");
+            if (feelsTempCel > 0)
+                ss.SpeakAsync("Temperatura odczuwalna to " + feelsTempCel.ToString() + endOfFeelsTempCel);
             else if (feelsTempCel == 0)
                 ss.SpeakAsync("Temperatura odczuwalna to zero stopni Celsjusza");
             else
-                ss.SpeakAsync("Temperatura odczuwalna to minus " + feelsTempCel + " stopni Celsjusza");
+                ss.SpeakAsync("Temperatura odczuwalna to minus " + feelsTempCel.ToString() + endOfFeelsTempCel);
 
-            ss.SpeakAsync("Dodatkowo aktualny wiatr wieje z prędkością " + weatherRoot.WeatherRoot.wind.speed + " metrów na sekundę");
+            int weatherRootWindSpeed = (int)weatherRoot.WeatherRoot.wind.speed;
+            string endOfString = " metrów na sekundę";
+
+            if (weatherRootWindSpeed == 0)
+                weatherRootWindSpeed++;
+            if (weatherRootWindSpeed == 1)
+                endOfString = " metr na sekundę";
+            else if (weatherRootWindSpeed > 1 && weatherRootWindSpeed <= 4)
+                endOfString = " metry na sekundę";
+
+            ss.SpeakAsync("Dodatkowo aktualny wiatr wieje z prędkością " + weatherRootWindSpeed.ToString() + endOfString);
         }
 
         private void Repozytorium(CarRepository carRepository)

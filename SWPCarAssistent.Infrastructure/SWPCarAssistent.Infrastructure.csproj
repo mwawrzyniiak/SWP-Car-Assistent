@@ -92,7 +92,6 @@
     <Compile Include="Factories\WeatherRootFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CarRepository.cs" />
-    <Compile Include="Services\OpenWeatherMapService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SWPCarAssistent.Core\SWPCarAssistent.Core.csproj">
