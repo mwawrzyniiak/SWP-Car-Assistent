@@ -154,7 +154,7 @@
     <Content Include="Voice\Radio3.mp3" />
     <Content Include="Voice\Radio6.mp3" />
     <Content Include="Voice\Radio5.mp3" />
-    <Resource Include="Images\Polonez_1500_wnetzre.jpg" />
+    <Resource Include="Images\Polonez_1500_wnetrze.jpg" />
     <Content Include="Voice\Radio2.mp3" />
     <Content Include="Voice\Radio1.mp3" />
   </ItemGroup>
