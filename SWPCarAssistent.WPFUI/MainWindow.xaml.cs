@@ -168,7 +168,7 @@ namespace SWPCarAssistent
                         {
                             propertyValue = (bool) (helper.GetValue(startupParamshelper));
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             Console.WriteLine("TODO: wytrych");
                         }
