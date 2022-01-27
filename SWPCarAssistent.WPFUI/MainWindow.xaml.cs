@@ -169,7 +169,14 @@ namespace SWPCarAssistent
                         {
                             if (e.Result.Semantics["config"].Value.ToString() != null && e.Result.Semantics["config"].Value.ToString() != "null")
                             {
-                                Repozytorium(carRepository);
+                                if (e.Result.Semantics["config"].Value.ToString() == "GetConfig")
+                                    Repozytorium(carRepository);
+                                else
+                                {
+                                    carRepository.ChangeStartupParams(startupParamshelper);
+                                    textBlock1.Text = "Zapisano ustawienia samochodu";
+                                    ss.SpeakAsync("Zapisano nowe domyślne ustawienia." + "\n" + "Na ekranie widzisz teraz aktualne i zapisane ustawienia");
+                                }
                             }
                             else
                             {
@@ -243,7 +250,14 @@ namespace SWPCarAssistent
                             default:
                                 break;
                         }
-                        textBlock1.Text += textValue + "\n";
+                        if (helper.PropertyType != typeof(int))
+                        {
+                            textBlock1.Text += textValue + "\n";
+                        }
+                        else
+                        {
+                            textBlock1.Text += "Oto stan Twojego samochodu:" + "\n";
+                        }
                     }
                 }
             }
