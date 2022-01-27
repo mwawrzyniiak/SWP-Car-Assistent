@@ -120,6 +120,9 @@
 				Załaduj domyślne ustawienia <tag>out="getConfig"</tag>
 			</item>
 			<item>
+				Zapisz ustawienia <tag>out="saveConfig"</tag>
+			</item>
+			<item>
 				<tag>out="null"</tag>
 			</item>
 		</one-of>
