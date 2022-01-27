@@ -232,23 +232,47 @@ namespace SWPCarAssistent
             this.tempLbl.Content = tempCel + " °C";
             this.cityLbl.Content = city;
 
+            string endOfTempCel = " stopni Celsjusza";
+            string endOfFeelsTempCel = " stopni Celsjusza";
+            
+            if(Math.Abs(tempCel) == 1)
+                endOfTempCel = " stopień Celsjusza";
+            else if(Math.Abs(tempCel) >= 2 && Math.Abs(tempCel) < 5)
+                endOfTempCel = " stopnie Celsjusza";
+
+            if (Math.Abs(feelsTempCel) == 1)
+                endOfFeelsTempCel = " stopień Celsjusza";
+            else if (Math.Abs(feelsTempCel) >= 2 && Math.Abs(feelsTempCel) < 5)
+                endOfFeelsTempCel = " stopnie Celsjusza";
+
+
             ss.SpeakAsync("Pogoda w mieście " + city + " jest następująca");
 
             if (tempCel > 0)
-                ss.SpeakAsync("Temperatura wynosi " + tempCel + " stopni Celsjusza");
+                ss.SpeakAsync("Temperatura wynosi " + tempCel.ToString() + endOfTempCel);
             else if (tempCel == 0)
                 ss.SpeakAsync("Temperatura wynosi zero stopni Celsjusza");
             else
-                ss.SpeakAsync("Temperatura wynosi minus " + tempCel + " stopni Celsjusza");
+                ss.SpeakAsync("Temperatura wynosi minus " + tempCel.ToString() + endOfTempCel);
 
-            if (feelsTempCel >= 0)
-                ss.SpeakAsync("Temperatura odczuwalna to " + feelsTempCel + " stopni Celsjusza");
+            if (feelsTempCel > 0)
+                ss.SpeakAsync("Temperatura odczuwalna to " + feelsTempCel.ToString() + endOfFeelsTempCel);
             else if (feelsTempCel == 0)
                 ss.SpeakAsync("Temperatura odczuwalna to zero stopni Celsjusza");
             else
-                ss.SpeakAsync("Temperatura odczuwalna to minus " + feelsTempCel + " stopni Celsjusza");
+                ss.SpeakAsync("Temperatura odczuwalna to minus " + feelsTempCel.ToString() + endOfFeelsTempCel);
 
-            ss.SpeakAsync("Dodatkowo aktualny wiatr wieje z prędkością " + weatherRoot.WeatherRoot.wind.speed + " metrów na sekundę");
+            int weatherRootWindSpeed = (int)weatherRoot.WeatherRoot.wind.speed;
+            string endOfString = " metrów na sekundę";
+
+            if (weatherRootWindSpeed == 0)
+                weatherRootWindSpeed++;
+            if (weatherRootWindSpeed == 1)
+                endOfString = " metr na sekundę";
+            else if (weatherRootWindSpeed > 1 && weatherRootWindSpeed <= 4)
+                endOfString = " metry na sekundę";
+
+            ss.SpeakAsync("Dodatkowo aktualny wiatr wieje z prędkością " + weatherRootWindSpeed.ToString() + endOfString);
         }
 
         private void Repozytorium(CarRepository carRepository)
