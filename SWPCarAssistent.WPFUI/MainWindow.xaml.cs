@@ -95,11 +95,13 @@ namespace SWPCarAssistent
                     polonez = true;
                     ss.SpeakAsync("Cześć! Co działamy?");
                     textBlock1.Text = "Witaj w programie inteligentnego Poloneza!\n\n";
-                    textBlock1.Text += "Jezeli chcesz odpalić samochód powiedz: \"odpal silnik\"\n";
-                    textBlock1.Text += "Jezeli chcesz zgasić samochód powiedz: \"zgaś silnik\"\n";
-                    textBlock1.Text += "Jezeli chcesz włączyć muzykę powiedz: \"puść muzykę\"\n";
-                    textBlock1.Text += "Jezeli chcesz zadzwonić do kogoś powiedz: \"kontakty\"\n";
-                    textBlock1.Text += "Jezeli chcesz załadować domyślne ustawienia samochodu powiedz: \n \"załaduj domyślne ustawienia\"\n";
+                    textBlock1.Text += "Jeżeli chcesz:\n";
+                    textBlock1.Text += " • Odpalić samochód powiedz: \"odpal silnik\"\n";
+                    textBlock1.Text += " • Zgasić samochód powiedz: \"zgaś silnik\"\n";
+                    textBlock1.Text += " • Włączyć muzykę powiedz: \"puść muzykę\"\n";
+                    textBlock1.Text += " • Zadzwonić do kogoś powiedz: \"kontakty\"\n";
+                    textBlock1.Text += " • Załadować domyślne ustawienia samochodu powiedz: \n \"załaduj domyślne ustawienia\"\n";
+                    textBlock1.Text += " • Zapisać aktualne ustawienia powiedz: \n \"zapisz ustawienia\"\n";
 
                     return;
                 }
@@ -140,7 +142,7 @@ namespace SWPCarAssistent
                         sre.LoadGrammar(phoneInteractionGrammar);
                         ss.SpeakAsync("Co chcesz zrobić z listą kontaktów? Wyświetlić czy do kogoś zadzwonić?");
                         textBlock1.Text = "                               Witaj w kontaktach\n\n";
-                        textBlock1.Text += "Sby wyświetlić kontakty powiedz: \"Wyświetl kontakty\"\n";
+                        textBlock1.Text += "Aby wyświetlić kontakty powiedz: \"Wyświetl kontakty\"\n";
                         textBlock1.Text += "Jeżeli chcesz zadzwonić do kogoś powiedz np.: \"Zadzwoń do brata\"\n";
                         return;
                     }
