@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Asystent" Height="900" Width="1200">
     <Window.Background>
-        <ImageBrush ImageSource="/Images/Polonez_1500_wnetzre.jpg" Stretch="Fill" />
+        <ImageBrush ImageSource="/Images/Polonez_1500_wnetrze.jpg" Stretch="Fill" />
     </Window.Background>
     <Grid>
         <TextBlock Name="textBlock1" HorizontalAlignment="Left" Margin="664,19,0,0" TextWrapping="Wrap" Text="Cześć! Jestem asystentem samochodu Polonez. Powiedz Hej Polonez, aby rozpocząć." VerticalAlignment="Top" Foreground="RosyBrown" Height="271" Width="407" FontSize="20"/>
