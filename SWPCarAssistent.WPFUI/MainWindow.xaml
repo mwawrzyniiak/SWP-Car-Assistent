@@ -10,7 +10,7 @@
         <ImageBrush ImageSource="/Images/Polonez_1500_wnetrze.jpg" Stretch="Fill" />
     </Window.Background>
     <Grid>
-        <TextBlock Name="textBlock1" HorizontalAlignment="Left" Margin="664,19,0,0" TextWrapping="Wrap" Text="Cześć! Jestem asystentem samochodu Polonez. Powiedz Hej Polonez, aby rozpocząć." VerticalAlignment="Top" Foreground="RosyBrown" Height="271" Width="407" FontSize="20"/>
+        <TextBlock Name="textBlock1" HorizontalAlignment="Left" Margin="657,25,0,0" TextWrapping="Wrap" Text="Cześć! Jestem asystentem samochodu Polonez. Powiedz Hej Polonez, aby rozpocząć." VerticalAlignment="Top" Foreground="RosyBrown" Height="265" Width="414" FontSize="16"/>
         <Label x:Name="tempLbl" Content="temperatura" HorizontalAlignment="Left" Foreground="GreenYellow" Margin="677,550,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="110">
             <Label.RenderTransform>
                 <TransformGroup>

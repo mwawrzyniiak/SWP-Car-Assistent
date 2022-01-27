@@ -93,7 +93,10 @@ namespace SWPCarAssistent
                 if (polonez == false && e.Result.Semantics["polonez"].Value.ToString() == "on")
                 {
                     polonez = true;
-                    ss.SpeakAsync("Co robimy?");
+                    ss.SpeakAsync("Cześć! Co działamy?");
+                    textBlock1.Text = "Witaj w programie inteligentnego Poloneza!\n\n";
+                    textBlock1.Text += "Jezeli chcesz włączyć muzykę powiedz: \"puść muzykę\"\n";
+                    textBlock1.Text += "Jezeli chcesz zadzwonić do kogoś powiedz: \"kontakty\"\n";
                     return;
                 }
                 if (polonez == true)
@@ -132,6 +135,10 @@ namespace SWPCarAssistent
                         sre.SpeechRecognized += Sre_SpeechRecognizedTelephoneNumbers;
                         sre.LoadGrammar(phoneInteractionGrammar);
                         ss.SpeakAsync("Co chcesz zrobić z listą kontaktów? Wyświetlić czy do kogoś zadzwonić?");
+                        textBlock1.Text = "                                      Witaj w kontaktach\n\n";
+                        textBlock1.Text += "Witaj w kontaktach, aby wyświetlić kontakty powiedz: \"Wyświetl kontakty\"\n";
+                        textBlock1.Text += "Jeżeli chcesz zadzwonić do kogoś powiedz np.: \"Zadzwoń do brata\"\n";
+                        return;
                     }
                     else if (e.Result.Semantics["turnOnRadio"].Value.ToString() != "null" && e.Result.Semantics["turnOnRadio"].ToString() != null)
                     {
@@ -145,6 +152,10 @@ namespace SWPCarAssistent
                         sre.SpeechRecognized += Sre_SpeechRecognizedRadio;
                         sre.LoadGrammar(radioGrammar);
                         ss.SpeakAsync("Chcesz wyświetlić listę stacji czy puścić wybraną?");
+                        textBlock1.Text = "                                      Witaj w radiu\n\n";
+                        textBlock1.Text += "Aby wyświetlić stacje powiedz: \"Wyświetl stacje\"\n";
+                        textBlock1.Text += "Jeżeli chcesz włączyć radio powiedz np.: \"Puść Eskę\"\n";
+                        return;
                     }
                     else
                     {
