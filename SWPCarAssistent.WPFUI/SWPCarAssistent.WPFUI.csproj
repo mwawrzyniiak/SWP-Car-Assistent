@@ -150,6 +150,9 @@
     <Content Include="Grammars\RadioGrammar.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\el1.png" />
+    <Resource Include="Images\el2.png" />
+    <Resource Include="Images\el3.png" />
     <Content Include="Voice\Radio4.mp3" />
     <Content Include="Voice\Radio3.mp3" />
     <Content Include="Voice\Radio6.mp3" />
