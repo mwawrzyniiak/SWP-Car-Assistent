@@ -42,5 +42,8 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
+        <Image Source="/Images/el1.png" Name="el1Icon" Margin="73,202,965,563"></Image>
+        <Image Source="/Images/el2.png" Name="el2Icon" Margin="245,209,822,577"></Image>
+        <Image Source="/Images/el3.png" Name="el3Icon" Margin="413,210,674,591"></Image>
     </Grid>
 </Window>

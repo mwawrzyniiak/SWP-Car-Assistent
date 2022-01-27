@@ -46,6 +46,11 @@ namespace SWPCarAssistent
             carRepository = new CarRepository();
 
             listBoxHelper.Visibility = Visibility.Collapsed;
+            el1Icon.Visibility = Visibility.Collapsed;
+            el2Icon.Visibility = Visibility.Collapsed;
+            el3Icon.Visibility = Visibility.Collapsed;
+
+
             ConfigureSpeecher();
         }
 
@@ -98,12 +103,19 @@ namespace SWPCarAssistent
                         if (e.Result.Semantics["start"].Value.ToString() == "offEngine" && start == true)
                         {
                             start = false;
+                            el1Icon.Visibility = Visibility.Collapsed;
+                            el2Icon.Visibility = Visibility.Collapsed;
+                            el3Icon.Visibility = Visibility.Collapsed;
                             ss.SpeakAsync("Silnik został wyłączony");
                             return;
                         }
                         if (e.Result.Semantics["start"].Value.ToString() == "onEngine" && start == false)
                         {
                             start = true;
+                            el1Icon.Visibility = Visibility.Visible;
+                            el2Icon.Visibility = Visibility.Visible;
+                            el3Icon.Visibility = Visibility.Visible;
+
                             ss.SpeakAsync("Silnik został włączony");
                             return;
                         }
