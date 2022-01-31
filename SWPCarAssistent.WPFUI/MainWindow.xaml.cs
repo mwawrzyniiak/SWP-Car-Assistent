@@ -101,7 +101,7 @@ namespace SWPCarAssistent
                     textBlock1.Text += " • Włączyć muzykę powiedz: \"puść muzykę\"\n";
                     textBlock1.Text += " • Zadzwonić do kogoś powiedz: \"kontakty\"\n";
                     textBlock1.Text += " • Załadować domyślne ustawienia samochodu powiedz: \n \"załaduj domyślne ustawienia\"\n";
-                    textBlock1.Text += " • Zapisać aktualne ustawienia powiedz: \n \"zapisz ustawienia\"\n";
+                    textBlock1.Text += " • Zapisać aktualne ustawienia powiedz: \n \"zapisz konfiguracje\"\n";
 
                     return;
                 }
@@ -169,9 +169,9 @@ namespace SWPCarAssistent
                         {
                             if (e.Result.Semantics["config"].Value.ToString() != null && e.Result.Semantics["config"].Value.ToString() != "null")
                             {
-                                if (e.Result.Semantics["config"].Value.ToString() == "GetConfig")
+                                if (e.Result.Semantics["config"].Value.ToString() == "getConfig")
                                     Repozytorium(carRepository);
-                                else
+                                else if (e.Result.Semantics["config"].Value.ToString() == "saveConfig")
                                 {
                                     carRepository.ChangeStartupParams(startupParamshelper);
                                     textBlock1.Text = "Zapisano ustawienia samochodu";
