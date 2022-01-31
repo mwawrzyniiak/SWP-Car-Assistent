@@ -7,6 +7,7 @@ What things you need to install the software and how to install them:
 SQLEXPRESS + MSSQL  
 The sample database is placed in the walkthrough directory  
 API Key from openweathermap  
+Add 6 own songs and name them: Radio1, Radio2, Radio3, ... to the Voice folder  
 
 ## Built With
 * .NET FRAMEWORK - Backend
